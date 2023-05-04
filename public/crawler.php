@@ -39,7 +39,7 @@
 		$doc = new DOMDocument();
 		$doc -> recover = true;
 		$doc -> strictErrorChecking = false;
-		@$doc -> loadHTML(self::$_webpage);
+		@$doc -> loadHTML($_webpage);
 		$elements = $doc -> getElementsByTagName("li");
 		foreach ($elements as $key => $noeud) {
 			if (strpos($noeud -> getAttribute('class'), "product-item") !== false) {
@@ -69,14 +69,14 @@
 		$a_titre = $noeud -> getElementsByTagName("a") -> item(0);
 		$info -> url = $a_titre->getAttribute('href');
       $nom = $noeud -> getElementsByTagName("a")->item(1)->textContent;
-		$info -> nom = self::nettoyerEspace(trim($nom));
+		$info -> nom = nettoyerEspace(trim($nom));
 		// Type, format et pays
 		$aElements = $noeud -> getElementsByTagName("strong");
 		foreach ($aElements as $node) {
 			if ($node -> getAttribute('class') == 'product product-item-identity-format') {
 				$info -> desc = new stdClass();
 				$info -> desc -> texte = $node -> textContent;
-				$info->desc->texte = self::nettoyerEspace($info->desc->texte);
+				$info->desc->texte = nettoyerEspace($info->desc->texte);
 				$aDesc = explode("|", $info->desc->texte); // Type, Format, Pays
 				if (count ($aDesc) == 3) {
 					$info -> desc -> type = trim($aDesc[0]);
