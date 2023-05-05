@@ -6,7 +6,10 @@ use App\Models\Bouteille;
 use App\Models\Format;
 use App\Models\Pays;
 use App\Models\Type;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class AdminController extends Controller
 {
@@ -23,10 +26,12 @@ class AdminController extends Controller
             $bouteilleExiste = Bouteille::where('code_saq', $produit['code_saq'])->first();
 
             if (!$bouteilleExiste) {
+                // Créer des entrées si les valurs sont nouvelles
                 $format = Format::firstOrCreate(['format' => $produit['format']]);
                 $pays = Pays::firstOrCreate(['pays' => $produit['pays']]);
                 $type = Type::firstOrCreate(['type' => $produit['type']]);
 
+                // Save la bouteille dans la db
                 $bouteille = new Bouteille();
                 $bouteille->nom = $produit['nom'];
                 $bouteille->code_saq = $produit['code_saq'];

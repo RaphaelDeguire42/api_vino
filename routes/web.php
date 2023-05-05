@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BouteilleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('catalogue', [BouteilleController::class, 'index'])->name('bouteille.catalogue');
 Route::get('ajout-bouteille', [AdminController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
 Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
 

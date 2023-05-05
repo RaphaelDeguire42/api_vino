@@ -22,10 +22,10 @@
 }
 
 </style>
-@foreach ($produits as $produit)
+@foreach ($bouteilles as $bouteille)
 <div class="card">
-      <h2>{{$produit['nom']}}</h2>
-      <picture style="width:100px;"><img style="width:100%" src="{{$produit['img']}}" alt=""></picture>
-      <p><a href="{{$produit['url']}}">Voir sur SAQ.com</a></p>
+      <h2>{{$bouteille['nom']}}</h2>
+      <picture style="width:100px;"><img style="width:100%" src="{{$bouteille['url_img']}}" alt=""></picture>
+      <p><a href="{{$bouteille['url_saq']}}">Voir sur SAQ.com</a></p>
 </div>
 @endforeach
