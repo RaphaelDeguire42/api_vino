@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('catalogue', [BouteilleController::class, 'index'])->name('bouteille.index');
-Route::get('ajout-bouteille', [AdminController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
+Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
 Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
+Route::get('bouteille/{bouteille}', [BouteilleController::class, 'show'])->name('bouteille.show');
 

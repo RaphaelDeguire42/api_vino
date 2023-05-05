@@ -47,7 +47,7 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        //
+        return view('bouteille.show', ['bouteille' => $bouteille]);
     }
 
     /**
@@ -82,5 +82,10 @@ class BouteilleController extends Controller
     public function destroy(Bouteille $bouteille)
     {
         //
+    }
+
+
+    public function ajouteBouteille(){
+        return view('bouteille.ajout');
     }
 }

@@ -47,7 +47,5 @@ class AdminController extends Controller
         return redirect()->route('bouteille.index')->with('success', "Bouteilles importées !");
     }
 
-    public function ajouteBouteille(){
-        return view('bouteille.ajout');
-    }
+
 }
