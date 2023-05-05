@@ -18,7 +18,7 @@ use App\Http\Controllers\BouteilleController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('catalogue', [BouteilleController::class, 'index'])->name('bouteille.catalogue');
+Route::get('catalogue', [BouteilleController::class, 'index'])->name('bouteille.index');
 Route::get('ajout-bouteille', [AdminController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
 Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
 

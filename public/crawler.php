@@ -8,7 +8,7 @@
 	function getProduits($nombre = 24, $page = 1) {
 
 		$s = curl_init();
-		$url = "https://www.saq.com/fr/produits/vin/vin-rouge?p=".$page."&product_list_limit=".$nombre."&product_list_order=name_asc";
+		$url = "https://www.saq.com/fr/produits/vin?p=".$page."&product_list_limit=".$nombre."&product_list_order=name_asc";
 		//curl_setopt($s, CURLOPT_URL, "http://www.saq.com/webapp/wcs/stores/servlet/SearchDisplay?searchType=&orderBy=&categoryIdentifier=06&showOnly=product&langId=-2&beginIndex=".$debut."&tri=&metaData=YWRpX2YxOjA8TVRAU1A%2BYWRpX2Y5OjE%3D&pageSize=". $nombre ."&catalogId=50000&searchTerm=*&sensTri=&pageView=&facet=&categoryId=39919&storeId=20002");
 		//curl_setopt($s, CURLOPT_URL, "https://www.saq.com/webapp/wcs/stores/servlet/SearchDisplay?categoryIdentifier=06&showOnly=product&langId=-2&beginIndex=" . $debut . "&pageSize=" . $nombre . "&catalogId=50000&searchTerm=*&categoryId=39919&storeId=20002");
 		//curl_setopt($s, CURLOPT_URL, $url);
@@ -64,7 +64,12 @@
 
 	function recupereInfo($noeud) {
 		$info = new stdClass();
-		$info -> img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
+		$img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
+		if(strpos($img, 'https://www.saq.com/media/wysiwyg') === false) {
+			$info -> img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
+		} else {
+			$info -> img = $noeud -> getElementsByTagName("img") -> item(1) -> getAttribute('src');
+		}
 		$info->img = strstr($info->img, "?", true);
 		$a_titre = $noeud -> getElementsByTagName("a") -> item(0);
 		$info -> url = $a_titre->getAttribute('href');

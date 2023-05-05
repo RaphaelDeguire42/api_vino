@@ -15,10 +15,8 @@ class AdminController extends Controller
 {
     public function dataCrawl(Request $request){
         require_once(('crawler.php'));
-        $produits = Array();
         $idLastBouteille = Bouteille::max('id');
         $page = $request->nombreBouteille + $idLastBouteille + 1;
-        //$page = 1;
         $nombre = 24;
         $succes = true;
         for ($i=$idLastBouteille+1; $i < $page; $i++) {
@@ -41,19 +39,15 @@ class AdminController extends Controller
                 $bouteille->id_format = $format->id;
                 $bouteille->id_pays = $pays->id;
                 $bouteille->id_type = $type->id;
-
-                if (!$bouteille->save()) {
-                    $succes = false;
-                }
-            }
-            else{
+                $bouteille->save();
+            } else {
                 $page++;
             }
         }
-        return view('bouteille/retour', ['succes' => $succes]);
+        return redirect()->route('bouteille.index')->with('success', "Bouteilles importées !");
     }
 
     public function ajouteBouteille(){
-        return view('bouteille/ajout');
+        return view('bouteille.ajout');
     }
 }
