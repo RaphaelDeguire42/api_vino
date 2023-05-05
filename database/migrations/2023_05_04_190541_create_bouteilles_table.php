@@ -18,11 +18,10 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('code_saq');
+            $table->string('url_saq');
             $table->string('url_img');
-            $table->integer('garde');
             $table->float('prix');
-            $table->integer('millesime');
-            $table->boolean('actif');
+            $table->boolean('actif')->default(1);
             $table->unsignedBigInteger('id_type');
             $table->foreign('id_type')->references('id')->on('types');
             $table->unsignedBigInteger('id_pays');

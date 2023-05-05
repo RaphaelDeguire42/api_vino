@@ -17,5 +17,6 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('crawler', [AdminController::class, 'dataCrawl']);
+Route::get('ajout-bouteille', [AdminController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
+Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
 

@@ -68,31 +68,33 @@
 		$info->img = strstr($info->img, "?", true);
 		$a_titre = $noeud -> getElementsByTagName("a") -> item(0);
 		$info -> url = $a_titre->getAttribute('href');
-      $nom = $noeud -> getElementsByTagName("a")->item(1)->textContent;
+        $nom = $noeud -> getElementsByTagName("a")->item(1)->textContent;
 		$info -> nom = nettoyerEspace(trim($nom));
 		// Type, format et pays
 		$aElements = $noeud -> getElementsByTagName("strong");
 		foreach ($aElements as $node) {
-			if ($node -> getAttribute('class') == 'product product-item-identity-format') {
-				$info -> desc = new stdClass();
-				$info -> desc -> texte = $node -> textContent;
+			if ($node->getAttribute('class') == 'product product-item-identity-format') {
+				$info->desc = new stdClass();
+				$info->desc->texte = $node->textContent;
 				$info->desc->texte = nettoyerEspace($info->desc->texte);
 				$aDesc = explode("|", $info->desc->texte); // Type, Format, Pays
-				if (count ($aDesc) == 3) {
-					$info -> desc -> type = trim($aDesc[0]);
-					$info -> desc -> format = trim($aDesc[1]);
-					$info -> desc -> pays = trim($aDesc[2]);
+				if (count($aDesc) == 3) {
+					$info->type = trim($aDesc[0]);
+					$info->format = trim($aDesc[1]);
+					$info->pays = trim($aDesc[2]);
 				}
-				$info -> desc -> texte = trim($info -> desc -> texte);
+				$info->desc->texte = trim($info->desc->texte);
+				unset($info->desc->texte);
 			}
 		}
+
 
 		//Code SAQ
 		$aElements = $noeud -> getElementsByTagName("div");
 		foreach ($aElements as $node) {
 			if ($node -> getAttribute('class') == 'saq-code') {
 				if(preg_match("/\d+/", $node -> textContent, $aRes)){
-					$info -> desc -> code_SAQ = trim($aRes[0]);
+					$info -> code_SAQ = trim($aRes[0]);
 				}
 			}
 		}
@@ -103,6 +105,24 @@
 				$info -> prix = floatval(str_replace( "," , ".",$node -> textContent,));
 			}
 		}
-		return $info;
+
+		$arr = json_decode(json_encode($info), true);
+		$result = array();
+		foreach ($arr as $key => $value) {
+			if (!empty($value)) {
+				$result[$key] = $value;
+			}
+		}
+		$return_arr = array(
+			'url' => $result['url'],
+			'nom' => $result['nom'],
+			'type' => $result['type'],
+			'format' => $result['format'],
+			'pays' => $result['pays'],
+			'code_saq' => $result['code_SAQ'],
+			'prix' => $result['prix'],
+			'img' => $result["img"]?? '/img/placehloder_bottle.webp'
+		);
+		return $return_arr;
+
 	}
-?>
