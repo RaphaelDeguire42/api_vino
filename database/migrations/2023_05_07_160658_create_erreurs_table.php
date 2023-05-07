@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('erreurs', function (Blueprint $table) {
             $table->id();
+            $table->text('erreur');
             $table->timestamps();
         });
     }
