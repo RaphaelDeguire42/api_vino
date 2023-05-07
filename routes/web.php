@@ -23,3 +23,4 @@ Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->
 Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
 Route::get('bouteille/{bouteille}', [BouteilleController::class, 'show'])->name('bouteille.show');
 
+Route::post('signaler-erreur', [AdminController::class, 'nouvelleErreur']);
