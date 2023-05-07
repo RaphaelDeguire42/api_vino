@@ -8,7 +8,7 @@
 	function getProduits($nombre = 24, $page = 1) {
 
 		$s = curl_init();
-		$url = "https://www.saq.com/fr/produits/vin/vin-rouge?p=".$page."&product_list_limit=".$nombre."&product_list_order=name_asc";
+		$url = "https://www.saq.com/fr/produits/vin?p=".$page."&product_list_limit=".$nombre."&product_list_order=name_asc";
 		//curl_setopt($s, CURLOPT_URL, "http://www.saq.com/webapp/wcs/stores/servlet/SearchDisplay?searchType=&orderBy=&categoryIdentifier=06&showOnly=product&langId=-2&beginIndex=".$debut."&tri=&metaData=YWRpX2YxOjA8TVRAU1A%2BYWRpX2Y5OjE%3D&pageSize=". $nombre ."&catalogId=50000&searchTerm=*&sensTri=&pageView=&facet=&categoryId=39919&storeId=20002");
 		//curl_setopt($s, CURLOPT_URL, "https://www.saq.com/webapp/wcs/stores/servlet/SearchDisplay?categoryIdentifier=06&showOnly=product&langId=-2&beginIndex=" . $debut . "&pageSize=" . $nombre . "&catalogId=50000&searchTerm=*&categoryId=39919&storeId=20002");
 		//curl_setopt($s, CURLOPT_URL, $url);
@@ -64,35 +64,42 @@
 
 	function recupereInfo($noeud) {
 		$info = new stdClass();
-		$info -> img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
+		$img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
+		if(strpos($img, 'https://www.saq.com/media/wysiwyg') === false) {
+			$info -> img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
+		} else {
+			$info -> img = $noeud -> getElementsByTagName("img") -> item(1) -> getAttribute('src');
+		}
 		$info->img = strstr($info->img, "?", true);
 		$a_titre = $noeud -> getElementsByTagName("a") -> item(0);
 		$info -> url = $a_titre->getAttribute('href');
-      $nom = $noeud -> getElementsByTagName("a")->item(1)->textContent;
+        $nom = $noeud -> getElementsByTagName("a")->item(1)->textContent;
 		$info -> nom = nettoyerEspace(trim($nom));
 		// Type, format et pays
 		$aElements = $noeud -> getElementsByTagName("strong");
 		foreach ($aElements as $node) {
-			if ($node -> getAttribute('class') == 'product product-item-identity-format') {
-				$info -> desc = new stdClass();
-				$info -> desc -> texte = $node -> textContent;
+			if ($node->getAttribute('class') == 'product product-item-identity-format') {
+				$info->desc = new stdClass();
+				$info->desc->texte = $node->textContent;
 				$info->desc->texte = nettoyerEspace($info->desc->texte);
 				$aDesc = explode("|", $info->desc->texte); // Type, Format, Pays
-				if (count ($aDesc) == 3) {
-					$info -> desc -> type = trim($aDesc[0]);
-					$info -> desc -> format = trim($aDesc[1]);
-					$info -> desc -> pays = trim($aDesc[2]);
+				if (count($aDesc) == 3) {
+					$info->type = trim($aDesc[0]);
+					$info->format = trim($aDesc[1]);
+					$info->pays = trim($aDesc[2]);
 				}
-				$info -> desc -> texte = trim($info -> desc -> texte);
+				$info->desc->texte = trim($info->desc->texte);
+				unset($info->desc->texte);
 			}
 		}
+
 
 		//Code SAQ
 		$aElements = $noeud -> getElementsByTagName("div");
 		foreach ($aElements as $node) {
 			if ($node -> getAttribute('class') == 'saq-code') {
 				if(preg_match("/\d+/", $node -> textContent, $aRes)){
-					$info -> desc -> code_SAQ = trim($aRes[0]);
+					$info -> code_SAQ = trim($aRes[0]);
 				}
 			}
 		}
@@ -103,6 +110,24 @@
 				$info -> prix = floatval(str_replace( "," , ".",$node -> textContent,));
 			}
 		}
-		return $info;
+
+		$arr = json_decode(json_encode($info), true);
+		$result = array();
+		foreach ($arr as $key => $value) {
+			if (!empty($value)) {
+				$result[$key] = $value;
+			}
+		}
+		$return_arr = array(
+			'url' => $result['url'],
+			'nom' => $result['nom'],
+			'type' => $result['type'],
+			'format' => $result['format'],
+			'pays' => $result['pays'],
+			'code_saq' => $result['code_SAQ'],
+			'prix' => $result['prix'],
+			'img' => $result["img"]?? '/img/placehloder_bottle.webp'
+		);
+		return $return_arr;
+
 	}
-?>
