@@ -1,5 +1,5 @@
 <head>
-    <link rel="stylesheet" href="/components/styles.css">
+    <link rel="stylesheet" href="/css/material-styles.css">
     <link rel="stylesheet" href="/css/signalerErreur.css">
 </head>
 
