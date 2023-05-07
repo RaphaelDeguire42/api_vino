@@ -73,7 +73,7 @@ img{
     Signaler une erreur
 </div>
 
-<app-root class="hide erreurBox"></app-root>
+<error-box class="hide erreurBox"></error-box>
 
 <script src="/js/signalerErreur.js"></script>
 
