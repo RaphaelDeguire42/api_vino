@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bouteille;
+use App\Models\Erreur;
 use App\Models\Format;
 use App\Models\Pays;
 use App\Models\Type;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -47,5 +49,9 @@ class AdminController extends Controller
         return redirect()->route('bouteille.index')->with('success', "Bouteilles importées !");
     }
 
-
+    public function nouvelleErreur(Request $request){
+        $erreur = new Erreur();
+        $erreur->erreur = $request->erreur;;
+        $erreur->save();
+    }
 }
