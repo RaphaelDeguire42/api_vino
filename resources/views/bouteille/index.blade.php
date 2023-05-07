@@ -5,8 +5,7 @@
 
 <style>
 .wrapper{
-    margin: 0 auto;
-    width:100%;
+    margin: 0 8vw;
     display: grid;
     gap: 1em;
     grid-template-columns: repeat(5, 1fr);
