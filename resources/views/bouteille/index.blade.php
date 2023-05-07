@@ -69,16 +69,15 @@ img{
     @endforelse
 </div>
 
-<div class="signalerErreur">
-    Signaler une erreur
-</div>
+<div class="signalerErreur">Signaler une erreur</div>
 
+<!--  Composant Angular Signaler une erreur -->
 <error-box class="hide erreurBox"></error-box>
-
 <script src="/js/signalerErreur.js"></script>
-
 <script src="/components/main.js"></script>
 <script src="/components/polyfills.js"></script>
 <script src="/components/runtime.js"></script>
+
+
 
 
