@@ -23,8 +23,10 @@ Route::get('/', function () {
 
 Route::get('crawler', [AdminController::class, 'dataCrawl']);
 Route::get('login', [AuthController::class, 'index'])->name('connexion');
-Route::post('authentification', [AuthController::class, 'authentification'])->name('authentification');
 Route::get('logout', [AuthController::class, 'deconnexion'])->name('deconnexion');
+Route::get('compte', [AuthController::class, 'gestionCompte'])->name('gestion.compte');
+Route::post('compte', [AuthController::class, 'modificationCompte'])->name('compte.modification');
+Route::post('authentification', [AuthController::class, 'authentification'])->name('authentification');
 
 Route::get('catalogue', [BouteilleController::class, 'index'])->name('bouteille.index');
 Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
