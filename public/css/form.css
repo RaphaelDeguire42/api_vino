@@ -22,7 +22,17 @@
 }
 .form_field_container>input{
     text-align: center;
+    border-radius: 20px;
+    font-size: 18px;
 }
 .retour_action{
     color: green;
+}
+.form_field_container>p{
+    color:white;
+    text-align: center;
+    font-size: 18px;
+}
+.retour_action_error{
+    color: orange;
 }

@@ -12,7 +12,10 @@
        <p class="retour_action"> connecté </p><a href="{{ route('deconnexion') }}">Deconnexion</a>
     @endif
     @if (session("errors"))
-        <p class="retour_action">{{ session('errors')->first() }}</p>
+        <p class="retour_action_error">{{ session('errors')->first() }}</p>
+    @endif
+    @if (session("success"))
+        <p class="retour_action">{{ session('success') }}</p>
     @endif
     @yield('content')
 </body>
