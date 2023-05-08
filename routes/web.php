@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BouteilleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +20,16 @@ use App\Http\Controllers\BouteilleController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('crawler', [AdminController::class, 'dataCrawl']);
+Route::get('login', [AuthController::class, 'index'])->name('connexion');
+Route::post('authentification', [AuthController::class, 'authentification'])->name('authentification');
+Route::get('logout', [AuthController::class, 'deconnexion'])->name('deconnexion');
+
 Route::get('catalogue', [BouteilleController::class, 'index'])->name('bouteille.index');
 Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
 Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
 Route::get('bouteille/{bouteille}', [BouteilleController::class, 'show'])->name('bouteille.show');
+
 
 Route::post('signaler-erreur', [AdminController::class, 'nouvelleErreur']);
