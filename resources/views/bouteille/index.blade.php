@@ -74,9 +74,9 @@ img{
 <!--  Composant Angular Signaler une erreur -->
 <error-box class="hide erreurBox"></error-box>
 <script src="/js/signalerErreur.js"></script>
-<script src="/components/main.js"></script>
-<script src="/components/polyfills.js"></script>
-<script src="/components/runtime.js"></script>
+<script src="/components/erreur/main.js"></script>
+<script src="/components/erreur/polyfills.js"></script>
+<script src="/components/erreur/runtime.js"></script>
 
 
 
