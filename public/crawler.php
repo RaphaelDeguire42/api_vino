@@ -5,12 +5,10 @@
 	 * @param int $debut
 	 */
 
-	function getProduits($nombre = 24, $page = 1, $type = "") {
+	function getProduits($nombre = 24, $page = 1) {
 
 		$s = curl_init();
-		$prefixVin = $type == "nature" || $type=="orange"? "-": "/vin-";
-		$typeURL = $type != ""? $prefixVin.$type: "";
-		$url = "https://www.saq.com/fr/produits/vin".$typeURL."?p=".$page."&product_list_limit=".$nombre."&product_list_order=name_asc";
+		$url = "https://www.saq.com/fr/produits/vin?p=".$page."&product_list_limit=".$nombre."&product_list_order=name_asc";
         // Se prendre pour un navigateur pour berner le serveur de la saq...
         curl_setopt_array($s,array(
             CURLOPT_URL => $url,

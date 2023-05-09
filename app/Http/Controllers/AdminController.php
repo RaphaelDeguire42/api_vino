@@ -20,14 +20,9 @@ class AdminController extends Controller
         $idLastBouteille = Bouteille::max('id');
         $page = $request->nombreBouteille + $idLastBouteille + 1;
         $nombre = 24;
-        $type= $request->type;
-        if($type=="rose" || $type=="orange" || $type== "nature"){
-            $page = $request->nombreBouteille;
-            $idLastBouteille = 0;
-        }
 
         for ($i=$idLastBouteille+1; $i < $page; $i++) {
-            $produit = getProduits($nombre,$i, $type);
+            $produit = getProduits($nombre,$i);
             $bouteilleExiste = Bouteille::where('code_saq', $produit['code_saq'])->first();
 
             if (!$bouteilleExiste) {
