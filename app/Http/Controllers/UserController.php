@@ -27,7 +27,24 @@ class UserController extends Controller
         return view('user.creation');
     }
 
-
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed', // TODO remettre les validations dans une request
+        ]);
+    
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+    
+        Auth::login($user);
+    
+        return redirect('/')->with('success', 'Bienvenue parmis nous ' . $validatedData['name'] . '!');
+    }
 
 
 

@@ -21,7 +21,8 @@ use App\Http\Controllers\BouteilleController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('creation', [UserController::class, 'creationCompte'])->name('compte.creation');
+Route::get('creation', [UserController::class, 'creationCompte']);
+Route::post('creation', [UserController::class, 'store'])->name('compte.creation');
 Route::get('crawler', [AdminController::class, 'dataCrawl']);
 Route::get('login', [AuthController::class, 'index'])->name('connexion');
 Route::get('logout', [AuthController::class, 'deconnexion'])->name('deconnexion');
