@@ -1,12 +1,11 @@
 <head>
-    <link rel="stylesheet" href="/components/styles.css">
+    <link rel="stylesheet" href="/css/material-styles.css">
     <link rel="stylesheet" href="/css/signalerErreur.css">
 </head>
 
 <style>
 .wrapper{
-    margin: 0 auto;
-    width:100%;
+    margin: 0 8vw;
     display: grid;
     gap: 1em;
     grid-template-columns: repeat(5, 1fr);
@@ -70,16 +69,15 @@ img{
     @endforelse
 </div>
 
-<div class="signalerErreur">
-    Signaler une erreur
-</div>
+<div class="signalerErreur">Signaler une erreur</div>
 
-<app-root class="hide erreurBox"></app-root>
-
+<!--  Composant Angular Signaler une erreur -->
+<error-box class="hide erreurBox"></error-box>
 <script src="/js/signalerErreur.js"></script>
-
 <script src="/components/main.js"></script>
 <script src="/components/polyfills.js"></script>
 <script src="/components/runtime.js"></script>
+
+
 
 
