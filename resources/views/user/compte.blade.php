@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login')
+@section('title', 'Votre compte')
 @section('content')
     <div class="form_container">
         <div class="form_titre">
@@ -20,12 +20,12 @@
                 </div>
                 <div class="form_field_container">
                     <p><label for="ancien_password">Ancien Mot de passe</label></p>
-                    <input type="ancien_password" name="ancien_password" placeholder="" id="ancien_password"
+                    <input type="password" name="ancien_password" placeholder="" id="ancien_password"
                         class="form-control">
                 </div>
                 <div class="form_field_container">
                     <p><label for="nouveau_password">Nouveau Mot de passe</label></p>
-                    <input type="nouveau_password" name="nouveau_password" placeholder="" id="nouveau_password"
+                    <input type="password" name="nouveau_password" placeholder="" id="nouveau_password"
                         class="form-control">
                 </div>
             </div>
