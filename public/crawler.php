@@ -57,8 +57,7 @@
 	function recupereInfo($noeud) {
 		$info = new stdClass();
 		$img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
-		$imgNbr = strpos($img, 'https://www.saq.com/media/wysiwyg') === false? 0:1;
-		$info -> img = $noeud -> getElementsByTagName("img") -> item($imgNbr) -> getAttribute('src');
+		$info -> img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
 		$info->img = strstr($info->img, "?", true);
 		$a_titre = $noeud -> getElementsByTagName("a") -> item(0);
 		$info -> url = $a_titre->getAttribute('href');
