@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login')
+@section('title', 'Votre compte')
 @section('content')
     <div class="form_container">
         <div class="form_titre">
@@ -11,21 +11,21 @@
                 <div class="form_field_container">
                     <p><label for="name">Nom</label></p>
                     <input type="name" name="name" id="name" class="form-control" 
-                        value="{{ Auth::user()->name }}">
+                        value="{{ Auth::user()->name ?? "" }}">
                 </div>
                 <div class="form_field_container">
                     <p><label for="email">Courriel</label></p>
                     <input type="email" name="email" id="email" class="form-control"
-                        value="{{ Auth::user()->email }}">
+                        value="{{ Auth::user()->email ?? "" }}">
                 </div>
                 <div class="form_field_container">
                     <p><label for="ancien_password">Ancien Mot de passe</label></p>
-                    <input type="ancien_password" name="ancien_password" placeholder="" id="ancien_password"
+                    <input type="password" name="ancien_password" placeholder="" id="ancien_password"
                         class="form-control">
                 </div>
                 <div class="form_field_container">
                     <p><label for="nouveau_password">Nouveau Mot de passe</label></p>
-                    <input type="nouveau_password" name="nouveau_password" placeholder="" id="nouveau_password"
+                    <input type="password" name="nouveau_password" placeholder="" id="nouveau_password"
                         class="form-control">
                 </div>
             </div>
