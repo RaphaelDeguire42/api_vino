@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bouteille;
+use App\Models\Erreur;
 use App\Models\Format;
 use App\Models\Pays;
 use App\Models\Type;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -18,7 +20,7 @@ class AdminController extends Controller
         $idLastBouteille = Bouteille::max('id');
         $page = $request->nombreBouteille + $idLastBouteille + 1;
         $nombre = 24;
-        $succes = true;
+
         for ($i=$idLastBouteille+1; $i < $page; $i++) {
             $produit = getProduits($nombre,$i);
             $bouteilleExiste = Bouteille::where('code_saq', $produit['code_saq'])->first();
@@ -47,5 +49,10 @@ class AdminController extends Controller
         return redirect()->route('bouteille.index')->with('success', "Bouteilles importées !");
     }
 
+    public function nouvelleErreur(Request $request){
+        $erreur = new Erreur();
+        $erreur->erreur = $request->erreur;;
+        $erreur->save();
+    }
 
 }
