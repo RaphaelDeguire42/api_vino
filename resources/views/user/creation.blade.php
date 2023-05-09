@@ -3,34 +3,30 @@
 @section('content')
     <div class="form_container">
         <div class="form_titre">
-            <h1 class="">Modification Compte</h1>
+            <h1 class="">Joignez-nous!</h1>
         </div>
-        <form action="{{ route('compte.modification') }}" method="post">
+        <form action="{{ route('compte.creation') }}" method="post">
             @csrf
             <div>
                 <div class="form_field_container">
-                    <p><label for="name">Nom</label></p>
-                    <input type="name" name="name" id="name" class="form-control" 
-                        value="{{ Auth::user()->name }}">
+                    <input type="name" name="name" id="name" class="form-control" placeholder="Nom"
+                        value="">
                 </div>
                 <div class="form_field_container">
-                    <p><label for="email">Courriel</label></p>
-                    <input type="email" name="email" id="email" class="form-control"
-                        value="{{ Auth::user()->email }}">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Courriel"
+                        value="">
                 </div>
                 <div class="form_field_container">
-                    <p><label for="password">Ancien Mot de passe</label></p>
-                    <input type="password" name="password" placeholder="" id="password"
+                    <input type="password" name="password" placeholder="Mot de passe" id="password"
                         class="form-control">
                 </div>
                 <div class="form_field_container">
-                    <p><label for="password_confirmation">Nouveau Mot de passe</label></p>
-                    <input type="password_confirmation" name="password_confirmation" placeholder="" id="password_confirmation"
+                    <input type="password" name="password_confirmation" placeholder="Confirmer mot de passe" id="password_confirmation"
                         class="form-control">
                 </div>
             </div>
             <div class="form_field_container">
-                <input type="submit" value="Modifier" class="">
+                <input type="submit" value="Joindre" class="">
             </div>
         </form>
     </div>

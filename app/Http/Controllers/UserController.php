@@ -10,10 +10,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
      /* 
     * Page création compte
@@ -28,7 +24,7 @@ public function __construct()
 
     public function creationCompte(Request $request)
     {
-        
+        return view('user.creation');
     }
 
 

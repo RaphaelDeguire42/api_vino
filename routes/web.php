@@ -21,15 +21,12 @@ use App\Http\Controllers\BouteilleController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('creation', [UserController::class, 'creationCompte'])->name('compte.creation');
 Route::get('crawler', [AdminController::class, 'dataCrawl']);
 Route::get('login', [AuthController::class, 'index'])->name('connexion');
 Route::get('logout', [AuthController::class, 'deconnexion'])->name('deconnexion');
 Route::post('authentification', [AuthController::class, 'authentification'])->name('authentification');
 
-
-Route::get('compte', [UserController::class, 'gestionCompte'])->name('gestion.compte');
-Route::post('compte', [UserController::class, 'modificationCompte'])->name('compte.modification');
 
 Route::get('catalogue', [BouteilleController::class, 'index'])->name('bouteille.index');
 Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
@@ -38,3 +35,12 @@ Route::get('bouteille/{bouteille}', [BouteilleController::class, 'show'])->name(
 
 
 Route::post('signaler-erreur', [AdminController::class, 'nouvelleErreur']);
+
+
+/* Routes protégés par le auth */
+Route::middleware(['auth'])->group(function () {
+    Route::get('compte', [UserController::class, 'gestionCompte'])->name('compte.gestion');
+    Route::post('compte', [UserController::class, 'modificationCompte'])->name('compte.modification');
+
+
+});
