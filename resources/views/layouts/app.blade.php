@@ -19,6 +19,12 @@
     @if (session("success"))
         <p class="retour_action">{{ session('success') }}</p>
     @endif
+    <nav>
+    @if (session()->has('auth'))
+        <a href="{{route('cellier.index', Auth::user()->id)}}">Mes celliers</a>
+    @endif
+    </nav>
+
     @yield('content')
 </body>
 </html>

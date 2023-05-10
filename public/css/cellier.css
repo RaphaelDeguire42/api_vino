@@ -1,0 +1,16 @@
+.cellier{
+    border: black 1px solid;
+}
+
+.cellier__top{
+    position: relative;
+}
+
+.cellier__pastille{
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    position: absolute;
+    top: -20px;
+}

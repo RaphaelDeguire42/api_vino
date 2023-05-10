@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CellierController;
 use App\Http\Controllers\BouteilleController;
 
 
@@ -43,6 +44,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('compte', [UserController::class, 'modificationCompte'])->name('compte.modification');
     Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
     Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
-
+    Route::get('{id_user}/cellier', [CellierController::class, 'index'])->where('id_user', '[0-9]+')->middleware('isRightUser')->name('cellier.index');
 
 });

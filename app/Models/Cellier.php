@@ -11,4 +11,8 @@ class Cellier extends Model
     protected $fillable = [
         'id_user'
     ];
+
+    public function cellierHasCouleur(){
+        return $this->hasOne('App\Models\Pastille_Couleur', 'id', 'id_couleur');
+    }
 }
