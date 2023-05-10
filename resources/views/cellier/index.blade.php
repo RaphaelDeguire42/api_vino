@@ -11,7 +11,7 @@
             <span class="cellier__pastille" style="background-color:{{$cellier->cellierHasCouleur->hex_value}}"></span>
                 <p>{{$cellier->nom}}</p>
             </div>
-            <div class="cellier__bottom">
+            <div class="cellier__content">
             {{--
                 @php
                     $bouteilles=$cellier->cellierHasBouteille;
@@ -23,6 +23,11 @@
                     <p>Aucune bouteille pour le moment...</p>
                 @endforelse
                 --}}
+            </div>
+            <div class="cellier__bottom">
+                <form action="{{ route('cellier.destroy', $cellier->id) }}" method="POST"> @csrf @method('DELETE')
+                    <button class="btn red" type="submit">Supprimer</button>
+                </form>
             </div>
         </div>
     @endforeach

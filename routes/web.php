@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
     Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
     Route::get('{id_user}/cellier', [CellierController::class, 'index'])->where('id_user', '[0-9]+')->middleware('isRightUser')->name('cellier.index');
-    Route::get('{id_user}/nouveau-cellier', [CellierController::class, 'create'])->where('id_user', '[0-9]+')->middleware('isRightUser')->name('cellier.index');
-    Route::post('{id_user}/nouveau-cellier', [CellierController::class, 'store'])->where('id_user', '[0-9]+')->middleware('isRightUser')->name('cellier.index');
+    Route::post('{id_user}/nouveau-cellier', [CellierController::class, 'store'])->where('id_user', '[0-9]+')->middleware('isRightUser');
+    Route::delete('cellier/{cellier}', [CellierController::class, 'destroy'])->where('id_user', '[0-9]+')->middleware('isRightUser')->name('cellier.destroy');
 
 });

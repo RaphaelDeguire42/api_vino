@@ -92,6 +92,7 @@ class CellierController extends Controller
      */
     public function destroy(Cellier $cellier)
     {
-        //
+        $cellier->delete();
+        return redirect()->route('cellier.index', Auth::user()->id)->with('success', "Cellier supprimé!");
     }
 }
