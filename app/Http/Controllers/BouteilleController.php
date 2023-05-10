@@ -81,7 +81,8 @@ class BouteilleController extends Controller
      */
     public function destroy(Bouteille $bouteille)
     {
-        //
+        $bouteille->delete();
+        return redirect()->route('bouteille.index')->with('success', "Bouteille supprimée!");
     }
 
 

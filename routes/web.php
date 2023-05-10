@@ -23,16 +23,15 @@ Route::get('/', function () {
 });
 Route::get('creation', [UserController::class, 'creationCompte']);
 Route::post('creation', [UserController::class, 'store'])->name('compte.creation');
-Route::get('crawler', [AdminController::class, 'dataCrawl']);
+//Route::get('crawler', [AdminController::class, 'dataCrawl']);
 Route::get('login', [AuthController::class, 'index'])->name('connexion');
 Route::get('logout', [AuthController::class, 'deconnexion'])->name('deconnexion');
 Route::post('authentification', [AuthController::class, 'authentification'])->name('authentification');
 
 
 Route::get('catalogue', [BouteilleController::class, 'index'])->name('bouteille.index');
-Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
-Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
 Route::get('bouteille/{bouteille}', [BouteilleController::class, 'show'])->name('bouteille.show');
+Route::delete('bouteille/{bouteille}', [BouteilleController::class, 'destroy'])->name('bouteille.destroy');
 
 
 Route::post('signaler-erreur', [AdminController::class, 'nouvelleErreur']);
@@ -42,6 +41,8 @@ Route::post('signaler-erreur', [AdminController::class, 'nouvelleErreur']);
 Route::middleware(['auth'])->group(function () {
     Route::get('compte', [UserController::class, 'gestionCompte'])->name('compte.gestion');
     Route::post('compte', [UserController::class, 'modificationCompte'])->name('compte.modification');
+    Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
+    Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
 
 
 });
