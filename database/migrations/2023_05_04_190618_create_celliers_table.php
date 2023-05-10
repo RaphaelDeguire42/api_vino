@@ -19,9 +19,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
-            $table->string('nom');
+            $table->string('nom')->default('Mon cellier');
             $table->unsignedBigInteger('id_couleur')->default(1);
-            $table->foreign('id_couleur')->references('id')->on('patille_couleurs');
+            $table->foreign('id_couleur')->references('id')->on('pastille_couleurs');
             $table->timestamps();
         });
 
