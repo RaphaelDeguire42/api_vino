@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cellier;
+use App\Models\Pastille_couleur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,8 @@ class CellierController extends Controller
      */
     public function create()
     {
-        //
+        $couleurs = Pastille_couleur::All();
+        return view('cellier.create', ['couleurs' => $couleurs]);
     }
 
     /**
@@ -38,7 +40,14 @@ class CellierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cellier = new Cellier();
+        $cellier->nom = $request->nom;
+        $cellier->id_couleur = $request->id_couleur;
+        $cellier->id_user = Auth::user()->id;
+        $cellier->save();
+
+        return redirect()->route('cellier.index', Auth::user()->id);
+
     }
 
     /**

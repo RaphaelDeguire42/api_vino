@@ -1,5 +1,7 @@
 .cellier{
     border: black 1px solid;
+    width: 300px;
+    margin: 10px;
 }
 
 .cellier__top{
@@ -13,4 +15,5 @@
     border-radius: 100%;
     position: absolute;
     top: -20px;
+    border: 1px gray solid;
 }

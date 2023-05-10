@@ -51,7 +51,7 @@ class AdminController extends Controller
 
     public function nouvelleErreur(Request $request){
         $erreur = new Erreur();
-        $erreur->erreur = $request->erreur;;
+        $erreur->erreur = $request->erreur;
         $erreur->save();
     }
 
