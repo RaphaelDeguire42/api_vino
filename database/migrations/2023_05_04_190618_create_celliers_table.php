@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Cellier;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,21 @@ return new class extends Migration
     {
         Schema::create('celliers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->string('nom');
+            $table->unsignedBigInteger('id_couleur')->default(1);
+            $table->foreign('id_couleur')->references('id')->on('patille_couleurs');
             $table->timestamps();
         });
+
+        $users = User::all();
+        foreach ($users as $user) {
+            Cellier::firstOrCreate(
+                ['id_user' => $user->id],
+                ['nom' => 'Mon premier Cellier', 'id_couleur' => 1]
+            );
+        }
     }
 
     /**

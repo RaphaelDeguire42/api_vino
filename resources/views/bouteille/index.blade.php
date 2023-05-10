@@ -11,7 +11,6 @@
 
     @forelse ($bouteilles as $bouteille)
     <div class="card">
-        <a href="{{route('bouteille.show', $bouteille->id)}}" class="btn">
             <div class="card-image">
                 <img src="{{$bouteille->url_img}}" alt="{{$bouteille->nom}}">
             </div>
@@ -21,10 +20,9 @@
             </div>
             <div class="card-action">
                 <form action="{{ route('bouteille.destroy', $bouteille->id) }}" method="POST"> @csrf @method('DELETE')
-                    <button class="" type="submit">Supprimer</button>
+                    <button class="btn red" type="submit">Supprimer</button>
                 </form>
             </div>
-        </a>
     </div>
 
     @empty
