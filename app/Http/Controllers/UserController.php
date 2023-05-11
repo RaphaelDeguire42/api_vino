@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Cellier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -11,7 +13,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-     /* 
+     /*
     * Page création compte
     * Page Gestion compte
     * Modification compte
@@ -34,15 +36,21 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed', // TODO remettre les validations dans une request
         ]);
-    
+
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
-    
+
+        $cellier = new Cellier();
+        $cellier->nom = 'Mon premier cellier';
+        $cellier->id_user = $user->id;
+        $cellier->id_couleur = 1;
+        $cellier->save();
+
         Auth::login($user);
-    
+
         return redirect('/')->with('success', 'Bienvenue parmis nous ' . $validatedData['name'] . '!');
     }
 
@@ -65,13 +73,13 @@ class UserController extends Controller
         ]);
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
-    
+
         if ($validatedData['nouveau_password']) {
             $user->password = Hash::make($validatedData['nouveau_password']);
         }
-    
+
         $user->save();
-    
+
     return redirect()->back()->with('success', 'Les informations du compte ont été mises à jour.');
     }
 

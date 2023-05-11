@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Models\User;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CellierController;
 use App\Http\Controllers\BouteilleController;
-
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +39,26 @@ Route::delete('bouteille/{bouteille}', [BouteilleController::class, 'destroy'])-
 Route::post('signaler-erreur', [AdminController::class, 'nouvelleErreur']);
 
 
+Route::get('/api/celliers/{id_bouteille}', function ($id_bouteille) {
+    $user = Auth::user();
+    $celliers = $user->celliers()->select('id', 'nom')->get();
+    $celliers = $celliers->map(function ($cellier) use ($id_bouteille) {
+        $cellier->id_bouteille = $id_bouteille;
+        return $cellier;
+    });
+
+    return response()->json($celliers);
+});
+
+
+
 /* Routes protégés par le auth */
 Route::middleware(['auth'])->group(function () {
     Route::get('compte', [UserController::class, 'gestionCompte'])->name('compte.gestion');
     Route::post('compte', [UserController::class, 'modificationCompte'])->name('compte.modification');
     Route::get('ajout-bouteille', [BouteilleController::class, 'ajouteBouteille'])->name('admin.ajouteBouteille');
     Route::post('ajout-bouteille', [AdminController::class, 'dataCrawl']);
-
-
+    Route::get('{id_user}/cellier', [CellierController::class, 'index'])->where('id_user', '[0-9]+')->middleware('isRightUser')->name('cellier.index');
+    Route::post('{id_user}/nouveau-cellier', [CellierController::class, 'store'])->where('id_user', '[0-9]+')->middleware('isRightUser');
+    Route::delete('cellier/{cellier}', [CellierController::class, 'destroy'])->where('id_user', '[0-9]+')->name('cellier.destroy');
 });
