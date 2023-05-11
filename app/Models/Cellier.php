@@ -15,4 +15,8 @@ class Cellier extends Model
     public function cellierHasCouleur(){
         return $this->hasOne('App\Models\Pastille_Couleur', 'id', 'id_couleur');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

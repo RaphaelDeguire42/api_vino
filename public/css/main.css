@@ -3,6 +3,7 @@
 @import url('signaler-erreur.css');
 @import url('card.css');
 @import url('cellier.css');
+@import url('snackBar.css');
 @import url('utilities.css');
 
 :root{

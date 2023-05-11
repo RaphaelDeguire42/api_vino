@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('title', 'Mes celliers')
 @section('content')
-    <nouveau-cellier></nouveau-cellier>
+    <nouveau-cellier class="nouveau-cellier"></nouveau-cellier>
     <script src="/components/nouveauCellier/main.js"></script>
     <script src="/components/nouveauCellier/polyfills.js"></script>
     <script src="/components/nouveauCellier/runtime.js"></script>
+
     @foreach ($celliers as $cellier)
         <div class="cellier">
             <div class="cellier__top">
@@ -25,9 +26,16 @@
                 --}}
             </div>
             <div class="cellier__bottom">
-                <form action="{{ route('cellier.destroy', $cellier->id) }}" method="POST"> @csrf @method('DELETE')
-                    <button class="btn red" type="submit">Supprimer</button>
-                </form>
+
+
+
+                @if ($celliers->count() > 1)
+                    <form action="{{ route('cellier.destroy', $cellier->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn red" type="submit">Supprimer</button>
+                    </form>
+                @endif
             </div>
         </div>
     @endforeach

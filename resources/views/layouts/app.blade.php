@@ -17,15 +17,26 @@
     @if (session("errors"))
         <p class="retour_action_error">{{ session('errors')->first() }}</p>
     @endif
-    @if (session("success"))
-        <p class="retour_action">{{ session('success') }}</p>
-    @endif
     <nav>
     @if (session()->has('auth'))
         <a href="{{route('cellier.index', Auth::user()->id)}}">Mes celliers</a>
     @endif
+        <a href="{{route('bouteille.index')}}">Catalogue</a>
     </nav>
-
+    @if (session("success"))
+        <div id="snackbar">{{ session('success') }} <span class="snackBar__fermer">Fermer</span> </div>
+    @endif
     @yield('content')
+    <script>
+        let snackbar = document.getElementById("snackbar") ?? null;
+        if(snackbar){
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            let btnFermer = document.querySelector('.snackBar__fermer');
+                btnFermer.addEventListener('click', function(){
+                    snackbar.classList.remove('show');
+                })
+        }
+    </script>
 </body>
 </html>
