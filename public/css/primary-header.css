@@ -101,4 +101,39 @@
 .back_get_started{
     background-image: url('../img/wine_twist.jpg');
     background-position: center;
+    background-size: cover;
+    background-color: #888;
+    background-blend-mode: multiply;
 }
+.logo_center{
+    justify-content: center;
+}
+.accroche_depart{
+    font-size: 26px;
+    font-family: var(--ff-primary);
+    color: white;
+    position: fixed;
+    bottom: 15%;
+    width: 100%;
+    text-align: center;
+    padding-inline: min(3rem, 20px);
+}
+.accroche_small{
+    font-size: 18px;
+    margin-top: 24px;
+}
+.button_commencer {
+    margin-top: 54px;
+    display: inline-block;
+    border-radius: 35px;
+    padding: 10px 20px;
+    background-color: var(--clr-primary-400);
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+
+  }
+  
+  .button_commencer:hover {
+    background-color: var(--clr-primary-100);
+  }
