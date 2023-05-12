@@ -5,38 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/nav.js" defer></script>
     <title>@yield('title')</title>
 </head>
 <body>
-    @if (session()->has('auth'))
-       <p class="retour_action"> connecté </p><a href="{{ route('deconnexion') }}">Deconnexion</a>
-    @endif
-    @if (session("errors"))
-        <p class="retour_action_error">{{ session('errors')->first() }}</p>
-    @endif
-    <nav>
-    @if (session()->has('auth'))
-        <a href="{{route('cellier.index', Auth::user()->id)}}">Mes celliers</a>
-    @endif
-        <a href="{{route('bouteille.index')}}">Catalogue</a>
-    </nav>
-    @if (session("success"))
-        <div id="snackbar">{{ session('success') }} <span class="snackBar__fermer">Fermer</span> </div>
-    @endif
+ <header class="primary-header bg-primary-400">
+        <div class="container flex">
+            <div>
+                <a href="#">
+                    <img class="logo" src="./img/logo-no-background.svg" alt="">
+                </a>
+            </div>
+
+            <button class="mobile-nav-toggle" 
+                    aria-controls="primary-navigation" 
+                    aria-expended="false"
+                    data-js-burger>
+                <span class="sr-only">Menu</span>
+            </button>
+
+            <nav>
+                <ul id="primary-navigation" class="primary-navigation flex uppercase text-neutral-100" data-js-primary-navigation="false">
+                    <li class="active">
+                        <a href="#">Accueil</a>
+                    </li>
+                    <li>
+                        <a href="#">Librairie</a>
+                    </li>
+                    <li>
+                        <a href="#">Produits surveillés</a>
+                    </li>
+                    <li>
+                        <a href="#">Produits consommés</a>
+                    </li>
+                    <li>
+                        <a href="#">Favoris</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <h1 class="fs-primary-heading title">Bienvenue</h1>
+    </header>
+
+  
     @yield('content')
-    <script>
-        let snackbar = document.getElementById("snackbar") ?? null;
-        if(snackbar){
-            snackbar.className = "show";
-            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-            let btnFermer = document.querySelector('.snackBar__fermer');
-                btnFermer.addEventListener('click', function(){
-                    snackbar.classList.remove('show');
-                })
-        }
-    </script>
+  
 </body>
 </html>
