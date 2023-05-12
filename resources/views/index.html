@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <script src="./assets/js/nav.js" defer></script>
+</head>
+<body>
+    <header class="primary-header bg-primary-400">
+        <div class="container flex">
+            <div>
+                <a href="#">
+                    <img class="logo" src="./assets/img/logo-no-background.svg" alt="">
+                </a>
+            </div>
+
+            <button class="mobile-nav-toggle" 
+                    aria-controls="primary-navigation" 
+                    aria-expended="false"
+                    data-js-burger>
+                <span class="sr-only">Menu</span>
+            </button>
+
+            <nav>
+                <ul id="primary-navigation" class="primary-navigation flex uppercase text-neutral-100" data-js-primary-navigation="false">
+                    <li class="active">
+                        <a href="#">Accueil</a>
+                    </li>
+                    <li>
+                        <a href="#">Librairie</a>
+                    </li>
+                    <li>
+                        <a href="#">Produits surveillés</a>
+                    </li>
+                    <li>
+                        <a href="#">Produits consommés</a>
+                    </li>
+                    <li>
+                        <a href="#">Favoris</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <h1 class="fs-primary-heading title">Bienvenue</h1>
+    </header>
+
+    <main class="page-principale">
+        <section class="liste-cellier">
+            <h2 class="fs-secondary-heading">Liste des celliers</h2>
+            <ul role="list">
+                <li role="list-item">
+                    <a href="#">Cellier 1</a> 
+                </li>
+                <li role="list-item">
+                    <a href="#">Cellier 2</a> 
+                </li>
+                <li role="list-item">
+                    <a href="#">Cellier 3</a> 
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="fs-secondary-heading">Top 5</h2>
+            
+            
+        </section>    
+    </main>
+</body>
+</html>
