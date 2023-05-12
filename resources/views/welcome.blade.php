@@ -9,9 +9,15 @@
     <title></title>
 </head>
 <body class="back_get_started">
-    <div >
-
+    <div class="flex logo_center">
+        <img class="logo logo_center" src="{{ asset('img/logo-no-background.svg') }}" alt="logo">
     </div>
+    <div class="accroche_depart">
+    <p>Profitez du plaisir de créer vos propres celliers et de partager vos opinions avec les autres!</p>
 
+    <p class="accroche_small">Une application dynamique qui vous permet de créer vos céliers et les partager avec le monde!</p>
+    
+    <a class="button_commencer" href="{{ route("index") }}"> Commencer ici</a>
+    </div>
 </body>
 </html>

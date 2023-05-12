@@ -1,3 +1,4 @@
+@extends('layouts.app')
 @section('content')
 <main class="page-principale">
         <section class="liste-cellier">
