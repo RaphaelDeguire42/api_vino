@@ -1,0 +1,33 @@
+.page-principale {
+    margin-top: 48px;
+}
+
+.page-principale ul {
+    text-align: center;
+}
+
+.page-principale li+li,
+.page-principale :where(li:first-of-type) {
+    padding-block: 5px;
+    border-top: 1px solid hsla(0, 9%, 75%, 0.2);
+    background-color: var(--clr-primary-100);
+    border-radius: 5px;
+    font-family: var(--ff-button);
+}
+
+.page-principale ul a {
+    font-weight: var(--fw-semi-bold);
+}
+
+.page-principale li+li:hover,
+.page-principale :where(li:first-of-type):hover {
+    background-color: var(--clr-primary-400);
+}
+
+.page-principale li+li {
+    margin-top: 12px;
+}
+
+.page-principale li:where(:last-of-type) {
+    border-bottom: 1px solid hsla(0, 9%, 75%, 0.2);
+}
