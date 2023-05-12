@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Type;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +14,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pays', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
             $table->timestamps();
         });
+
+        $types = ['Vin Rouge', 'Vin Blanc'];
+        foreach ($types as $typeNom) {
+            $type = new Type();
+            $type->type = $typeNom;
+            $type->save();
+        }
     }
 
     /**
@@ -26,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pays');
+        Schema::dropIfExists('types');
     }
 };

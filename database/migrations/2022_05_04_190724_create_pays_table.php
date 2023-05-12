@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pastille_couleurs', function (Blueprint $table) {
+        Schema::create('pays', function (Blueprint $table) {
             $table->id();
+            $table->string('pays');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pastille_couleurs');
+        Schema::dropIfExists('pays');
     }
 };

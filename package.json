@@ -10,5 +10,9 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@material-icons/font": "^1.0.36",
+        "@material/snackbar": "^14.0.0"
     }
 }
