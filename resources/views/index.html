@@ -65,7 +65,17 @@
         </section>
         <section>
             <h2 class="fs-secondary-heading">Top 5</h2>
-            
+            <div>
+                <article class="unProduit card">
+                    <img class="card__img" src={{ asset('img/19crimes.web') }} alt={nom} />
+                    <div class="card__content">
+                        <h2 class="card__title">{nom}</h2>
+                        <p class="card__brewery">Brasserie : {brasserie}</p>
+                        <p class="card__vote">Note: {note_nombre < 1 ? '' : `${note_moyenne}/5 - `}  <small>{note_nombre} {note_nombre > 1 ? 'votes' : 'vote'}</small></p>
+                        <p></p>
+                    </div>
+                </article>
+            </div>
             
         </section>    
     </main>
