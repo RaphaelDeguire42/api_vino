@@ -23,6 +23,11 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/index', function () {
+    return view('user.index');
+});
+
 Route::get('creation', [UserController::class, 'creationCompte']);
 Route::post('creation', [UserController::class, 'store'])->name('compte.creation');
 //Route::get('crawler', [AdminController::class, 'dataCrawl']);
