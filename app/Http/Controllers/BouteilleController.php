@@ -69,7 +69,7 @@ class BouteilleController extends Controller
      */
     public function edit(Bouteille $bouteille)
     {
-        
+        //
     }
 
     /**
@@ -82,6 +82,7 @@ class BouteilleController extends Controller
     public function update(UpdateBouteilleRequest $request, Bouteille $bouteille)
     {
         $bouteille->update($request->all());
+        return response()->json(['id' => $bouteille->id]);
     }
 
     /**
