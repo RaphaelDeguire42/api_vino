@@ -14,8 +14,7 @@ class BouteilleController extends Controller
      */
     public function index()
     {
-        $bouteilles = Bouteille::all();
-        return view('bouteille/index', ['bouteilles' => $bouteilles]);
+        return Bouteille::all();
     }
 
     /**
@@ -47,7 +46,7 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        return view('bouteille.show', ['bouteille' => $bouteille]);
+        return $bouteille;
     }
 
     /**
