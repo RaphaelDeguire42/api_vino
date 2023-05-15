@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bouteille;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreBouteilleRequest;
+use App\Http\Requests\UpdateBouteilleRequest;
 
 class BouteilleController extends Controller
 {
@@ -14,8 +16,7 @@ class BouteilleController extends Controller
      */
     public function index()
     {
-        $bouteilles = Bouteille::all();
-        return view('bouteille/index', ['bouteilles' => $bouteilles]);
+        return Bouteille::all();
     }
 
     /**
@@ -35,8 +36,18 @@ class BouteilleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+        {
+            $bouteille = new Bouteille();
+            $bouteille->nom = $produit['nom'];
+            $bouteille->code_saq = $produit['code_saq'];
+            $bouteille->url_saq = $produit['url'];
+            $bouteille->url_img = $produit['img'];
+            $bouteille->prix = $produit['prix'];
+            $bouteille->id_format = $format->id;
+            $bouteille->id_pays = $pays->id;
+            $bouteille->id_type = $type->id;
+            $bouteille->save();
+        return response()->json(['id' => $bouteille->id]);
     }
 
     /**
@@ -47,7 +58,7 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        return view('bouteille.show', ['bouteille' => $bouteille]);
+        return $bouteille;
     }
 
     /**
@@ -68,9 +79,10 @@ class BouteilleController extends Controller
      * @param  \App\Models\Bouteille  $bouteille
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bouteille $bouteille)
+    public function update(UpdateBouteilleRequest $request, Bouteille $bouteille)
     {
-        //
+        $bouteille->update($request->all());
+        return response()->json(['id' => $bouteille->id]);
     }
 
     /**
@@ -82,11 +94,6 @@ class BouteilleController extends Controller
     public function destroy(Bouteille $bouteille)
     {
         $bouteille->delete();
-        return redirect()->route('bouteille.index')->with('success', "Bouteille supprimée!");
     }
 
-
-    public function ajouteBouteille(){
-        return view('bouteille.ajout');
-    }
 }
