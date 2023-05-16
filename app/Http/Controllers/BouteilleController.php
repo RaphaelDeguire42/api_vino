@@ -6,6 +6,7 @@ use App\Models\Bouteille;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBouteilleRequest;
 use App\Http\Requests\UpdateBouteilleRequest;
+use App\Services\BouteilleQuery;
 
 class BouteilleController extends Controller
 {
@@ -14,9 +15,19 @@ class BouteilleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Bouteille::all();
+        $filtre = new BouteilleQuery();
+        $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
+
+        Bouteille::where([['column', 'operator', 'value']]);
+
+        if (count($paramQuery) === 0){ 
+            return Bouteille::all();
+        } else {
+            return Bouteille::where($paramQuery)->get();
+        }
+
     }
 
     /**

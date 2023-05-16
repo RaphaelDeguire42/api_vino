@@ -16,9 +16,12 @@ class CellierController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
+
+        return Cellier::all();
+
+       /*  $user_id = Auth::user()->id;
         $celliers = Cellier::where('id_user', $user_id)->get();
-        return view('cellier.index', ['celliers' => $celliers]);
+        return view('cellier.index', ['celliers' => $celliers]); */
     }
 
     /**
@@ -58,7 +61,9 @@ class CellierController extends Controller
      */
     public function show(Cellier $cellier)
     {
-        //
+        $celliers = Cellier::where('id_user', $cellier)->get();
+
+        return response()->json($celliers);
     }
 
     /**
