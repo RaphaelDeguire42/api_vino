@@ -6,23 +6,46 @@ use App\Models\Cellier;
 use App\Models\Pastille_couleur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\CellierQuery;
+
+
+
 
 class CellierController extends Controller
 {
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Cellier  $cellier
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $filtre = new CellierQuery();
+        $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
+
+        Cellier::where([['column', 'operator', 'value']]);
+
+
+            return Cellier::where($paramQuery)->get();
+        
+
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+  /*   public function show(Request $request)
     {
-
-        return Cellier::all();
-
-       /*  $user_id = Auth::user()->id;
-        $celliers = Cellier::where('id_user', $user_id)->get();
-        return view('cellier.index', ['celliers' => $celliers]); */
-    }
+        $userId = $request->input('id_user');
+        var_dump($request);
+        $celliers = Cellier::where('id_user', $userId)->get();
+        
+        return response()->json($celliers);
+    } */
 
     /**
      * Show the form for creating a new resource.
@@ -31,8 +54,7 @@ class CellierController extends Controller
      */
     public function create()
     {
-        $couleurs = Pastille_couleur::All();
-        return view('cellier.create', ['couleurs' => $couleurs]);
+        //
     }
 
     /**
@@ -53,18 +75,6 @@ class CellierController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cellier  $cellier
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cellier $cellier)
-    {
-        $celliers = Cellier::where('id_user', $cellier)->get();
-
-        return response()->json($celliers);
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -98,6 +108,5 @@ class CellierController extends Controller
     public function destroy(Cellier $cellier)
     {
         $cellier->delete();
-        return redirect()->route('cellier.index', Auth::user()->id)->with('success', "Cellier supprimé!");
     }
 }

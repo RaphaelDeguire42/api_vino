@@ -29,25 +29,25 @@ class UpdateBouteilleRequest extends FormRequest
         
         if ($method == 'PUT'){
             return [
-                'nom' => ['required'],
-                'code_saq' => ['required'],
-                'url_saq' => ['required'],
-                'url_img' => ['required'],
-                'prix' => ['required'],
+                'nom'       => ['required'],
+                'code_saq'  => ['required'],
+                'url_saq'   => ['required'],
+                'url_img'   => ['required'],
+                'prix'      => ['required'],
                 'id_format' => ['required'],
-                'id_pays' => ['required'],
-                'id_type' => ['required'],
+                'id_pays'   => ['required'],
+                'id_type'   => ['required'],
             ];
         } else {
             return [
-                'nom' => ['sometimes','required'],
-                'code_saq' => ['sometimes','required'],
-                'url_saq' => ['sometimes','required'],
-                'url_img' => ['sometimes','required'],
-                'prix' => ['sometimes','required'],
+                'nom'       => ['sometimes','required'],
+                'code_saq'  => ['sometimes','required'],
+                'url_saq'   => ['sometimes','required'],
+                'url_img'   => ['sometimes','required'],
+                'prix'      => ['sometimes','required'],
                 'id_format' => ['sometimes','required'],
-                'id_pays' => ['sometimes','required'],
-                'id_type' => ['sometimes','required'],
+                'id_pays'   => ['sometimes','required'],
+                'id_type'   => ['sometimes','required'],
             ];
         }
        
