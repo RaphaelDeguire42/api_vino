@@ -18,7 +18,9 @@ class AdminController extends Controller
     public function index(){
         require_once(('crawler.php'));
         $idLastBouteille = Bouteille::max('id');
-        $page = 2 + $idLastBouteille + 1;
+        // changer nombreAImporter pour le nombre a importer
+        $nombreAImporter = 5;
+        $page = $nombreAImporter + $idLastBouteille + 1;
         $nombre = 24;
         $bouteilles = [];
 
