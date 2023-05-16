@@ -22,6 +22,7 @@ class Bouteille extends Model
         'id_type',
     ];
 
+    
     public function bouteilleHasPays(){
         return $this->hasOne('App\Models\Pays', 'id', 'id_pays');
     }
