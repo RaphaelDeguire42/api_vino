@@ -68,3 +68,34 @@ Route::middleware(['auth'])->group(function () {
     Route::post('{id_user}/nouveau-cellier', [CellierController::class, 'store'])->where('id_user', '[0-9]+')->middleware('isRightUser');
     Route::delete('cellier/{cellier}', [CellierController::class, 'destroy'])->where('id_user', '[0-9]+')->name('cellier.destroy');
 });
+
+public function authentification() {
+    return 'coucou';
+} 
+
+// Route::get('/setup', function () {
+//     $credentials = [
+//         'email' => 'admin@admin.com',
+//         'password' => 'password'
+//     ];
+
+//     if (!Auth::attempt($credentials)) {
+//         $user = new \App\Models\User();
+
+//         $user->name = 'Admin';
+//         $user->email = $credentials['email'];
+//         $user->password = Hash::make($credentials['password']);
+
+//         $user->save();
+
+//         if (Auth::attempt($credentials)) {
+//             $user = Auth::user()->role == 1;
+
+//             $basicToken = $user->createToken('basic-token');
+
+//             return [
+//                 'basic' => $basicToken->plainTextToken,
+//             ];
+//         }
+//     }
+// });
