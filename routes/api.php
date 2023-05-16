@@ -37,3 +37,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
 //     Route::apiResource('bouteilles', BouteilleController::class); // CRUD pour Bouteilles
 //     Route::apiResource('celliers', CellierController::class); //CRUD pour Celliers
 // });
+
+Route::apiResource('crawl', AdminController::class, 'dataCrawler'); //route pour le crawler
+Route::apiResource('erreur', AdminController::class, 'nouvelleErreur'); //route pour les erreurs

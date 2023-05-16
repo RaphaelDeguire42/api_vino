@@ -54,5 +54,5 @@ class AdminController extends Controller
         $erreur->erreur = $request->erreur;
         $erreur->save();
     }
-
+    
 }
