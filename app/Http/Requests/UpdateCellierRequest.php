@@ -25,14 +25,14 @@ class UpdateCellierRequest extends FormRequest
      */
     public function rules()
     {
-         
+
         if ($method == 'PUT')
         {
-            return [            
+            return [
             'id_user'       => ['required'],
             'nom'           => ['required'],
             'id_couleur'    => ['required'],
-            ]
+            ];
         }else{
             return [
                 'id_user'       => ['sometimes','required'],
