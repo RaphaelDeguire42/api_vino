@@ -33,4 +33,8 @@ class Bouteille extends Model
     public function bouteilleHasFormat(){
         return $this->hasOne('App\Models\Format', 'id', 'id_format');
     }
+
+    public function cellier() {
+        return $this->belongsTo(Cellier::class);
+    }
 }
