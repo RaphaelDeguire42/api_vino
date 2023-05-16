@@ -37,4 +37,8 @@ class Bouteille extends Model
     public function cellier() {
         return $this->belongsTo(Cellier::class);
     }
+
+    public function noteCommentaire() {
+        return $this->hasmany(Note_Commentaire::class);
+    }
 }
