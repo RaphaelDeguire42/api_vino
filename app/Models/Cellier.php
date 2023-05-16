@@ -19,4 +19,8 @@ class Cellier extends Model
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function bouteilles() {
+        return $this->hasmany(Bouteille::class);
+    }
 }
