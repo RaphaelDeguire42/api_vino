@@ -48,6 +48,7 @@ class BouteilleController extends Controller
      */
     public function store(StoreBouteilleRequest $request)
         {
+                /*
             $bouteille = new Bouteille();
             $bouteille->nom = $produit['nom'];
             $bouteille->code_saq = $produit['code_saq'];
@@ -59,6 +60,7 @@ class BouteilleController extends Controller
             $bouteille->id_type = $type->id;
             $bouteille->save();
         return response()->json(['id' => $bouteille->id]);
+        */
     }
 
     /**
