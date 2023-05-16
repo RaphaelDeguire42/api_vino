@@ -31,6 +31,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::apiResource('types', TypeController::class); //CRUD pour Types
     Route::apiResource('pays', PaysController::class); //CRUD pour Pays
     Route::apiResource('formats', FormatController::class); //CRUD pour Formats
+    Route::apiResource('crawl', AdminController::class); //route pour le crawler
+    Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
 });
 
 // Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:sanctum'], function(){
@@ -38,5 +40,3 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
 //     Route::apiResource('celliers', CellierController::class); //CRUD pour Celliers
 // });
 
-Route::apiResource('crawl', AdminController::class, 'dataCrawler'); //route pour le crawler
-Route::apiResource('erreur', AdminController::class, 'nouvelleErreur'); //route pour les erreurs
