@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Cellier_Bouteille extends Model
 {
     use HasFactory;
+
+    public function bouteillesDansCellier_bouteilles() {
+        return $this->hasmany(Bouteille::class);
+    }
+
+    public function celliersDansCellier_bouteilles() {
+        return $this->hasmany(Cellier::class);
+    }
 }
