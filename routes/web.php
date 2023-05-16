@@ -69,6 +69,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('cellier/{cellier}', [CellierController::class, 'destroy'])->where('id_user', '[0-9]+')->name('cellier.destroy');
 });
 
+public function authentification() {
+    return 'coucou';
+} 
+
 // Route::get('/setup', function () {
 //     $credentials = [
 //         'email' => 'admin@admin.com',
