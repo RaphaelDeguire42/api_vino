@@ -22,21 +22,20 @@ return new class extends Migration
         });
 
         $colors = array(
-            'black' => '#000000',
-            'white' => '#ffffff',
-            'red' => '#ff0000',
-            'green' => '#00ff00',
-            'blue' => '#0000ff',
-            'yellow' => '#ffff00',
+            'noir' => '#000000',
+            'gris' => '#808080',
+            'blanc' => '#ffffff',
+            'rouge' => '#ff0000',
+            'vert' => '#00ff00',
+            'bleu' => '#0000ff',
+            'jaune' => '#ffff00',
             'magenta' => '#ff00ff',
             'cyan' => '#00ffff',
-            'maroon' => '#800000',
+            'maron' => '#800000',
             'olive' => '#008000',
-            'navy' => '#000080',
-            'teal' => '#808000',
-            'purple' => '#800080',
-            'dark_cyan' => '#008080',
-            'grey' => '#808080'
+            'bleu marine' => '#000080',
+            'mauve' => '#800080',
+            'cyan foncé' => '#008080',
         );
 
         foreach ($colors as $color => $hex) {

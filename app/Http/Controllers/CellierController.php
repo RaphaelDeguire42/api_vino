@@ -29,7 +29,7 @@ class CellierController extends Controller
 
 
             return Cellier::where($paramQuery)->get();
-        
+
 
     }
 
@@ -43,7 +43,7 @@ class CellierController extends Controller
         $userId = $request->input('id_user');
         var_dump($request);
         $celliers = Cellier::where('id_user', $userId)->get();
-        
+
         return response()->json($celliers);
     } */
 
@@ -68,10 +68,12 @@ class CellierController extends Controller
         $cellier = new Cellier();
         $cellier->nom = $request->nom;
         $cellier->id_couleur = $request->id_couleur;
-        $cellier->id_user = Auth::user()->id;
+        // Temporaire car pas encore de user
+        $cellier->id_user = 1;
+        //$cellier->id_user = Auth::user()->id;
         $cellier->save();
 
-        return redirect()->route('cellier.index', Auth::user()->id);
+        return response()->json(['status' => 'success'], 200);
 
     }
 
