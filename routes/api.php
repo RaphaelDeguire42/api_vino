@@ -26,3 +26,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::apiResource('bouteilles', BouteilleController::class); // CRUD pour Bouteilles
     Route::apiResource('celliers', CellierController::class); //CRUD pour Celliers
 });
+
+// Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:sanctum'], function(){
+//     Route::apiResource('bouteilles', BouteilleController::class); // CRUD pour Bouteilles
+//     Route::apiResource('celliers', CellierController::class); //CRUD pour Celliers
+// });
