@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('cellier__bouteilles', function (Blueprint $table) {
             $table->id();
-            $table->string('nom')
-            $table->integer('id_pays');
-            $table->string('url_img')->nullable();
             $table->integer('id_bouteille');
             $table->integer('id_cellier');
+            $table->string('nom')->nullable();
+            $table->integer('id_pays')->nullable();
+            $table->string('url_img')->nullable();
             $table->integer('quantite');
             $table->dateTime('date_achat');
             $table->integer('garde');
