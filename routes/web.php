@@ -68,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('{id_user}/nouveau-cellier', [CellierController::class, 'store'])->where('id_user', '[0-9]+')->middleware('isRightUser');
     Route::delete('cellier/{cellier}', [CellierController::class, 'destroy'])->where('id_user', '[0-9]+')->name('cellier.destroy');
 });
+
 /* 
 Route::get('/setup', function () {
     $credentials = [
@@ -87,6 +88,7 @@ Route::get('/setup', function () {
         $user->save();
 
         if (Auth::attempt($credentials)) {
+
             $user = Auth::user()->role == 1;
 
             $basicToken = $user->createToken('basic-token');
@@ -96,4 +98,6 @@ Route::get('/setup', function () {
             ];
         }
     }
+
 }); */
+

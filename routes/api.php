@@ -36,9 +36,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
     Route::apiResource('couleurs', PastilleCouleurController::class); //route pour les couleurs
 });
+
 /* 
 Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:sanctum'], function(){
     Route::apiResource('bouteilles', BouteilleController::class); // CRUD pour Bouteilles
     Route::apiResource('celliers', CellierController::class); //CRUD pour Celliers
 }); */
+
 
