@@ -22,12 +22,15 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->unsignedBigInteger('id_role');
+            $table->foreign('id_role')->references('id')->on('roles')->default(2);
             $table->timestamps();
         });
         DB::table('users')->insert([
             'name' => 'DummyUser',
             'email' => 'user@example.com',
-            'password' => Hash::make('pass1234')
+            'password' => Hash::make('pass1234'),
+            'id_role' => 1
         ]);
     }
 
