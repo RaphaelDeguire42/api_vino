@@ -115,7 +115,7 @@
 			'pays' => $result['pays'],
 			'code_saq' => $result['code_SAQ'],
 			'prix' => $result['prix'],
-			'img' => $result["img"]?? '/img/placehloder_bottle.webp'
+			'img' => $result["img"]?? 'assets/img/placehloder_bottle.webp'
 		);
 		return $return_arr;
 
