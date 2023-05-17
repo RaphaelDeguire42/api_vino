@@ -69,29 +69,29 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('cellier/{cellier}', [CellierController::class, 'destroy'])->where('id_user', '[0-9]+')->name('cellier.destroy');
 });
 
-// Route::get('/setup', function () {
-//     $credentials = [
-//         'email' => 'admin@admin.com',
-//         'password' => 'password'
-//     ];
+Route::get('/setup', function () {
+    $credentials = [
+        'email' => 'admin@admin.com',
+        'password' => 'password'
+    ];
 
-//     if (!Auth::attempt($credentials)) {
-//         $user = new \App\Models\User();
+    if (!Auth::attempt($credentials)) {
+        $user = new \App\Models\User();
 
-//         $user->name = 'Admin';
-//         $user->email = $credentials['email'];
-//         $user->password = Hash::make($credentials['password']);
+        $user->name = 'Admin';
+        $user->email = $credentials['email'];
+        $user->password = Hash::make($credentials['password']);
 
-//         $user->save();
+        $user->save();
 
-//         if (Auth::attempt($credentials)) {
-//             $user = Auth::user()->role == 1;
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();/*->role == 1*/
 
-//             $basicToken = $user->createToken('basic-token');
+            $basicToken = $user->createToken('basic-token');
 
-//             return [
-//                 'basic' => $basicToken->plainTextToken,
-//             ];
-//         }
-//     }
-// });
+            return [
+                'basic' => $basicToken->plainTextToken,
+            ];
+        }
+    }
+});
