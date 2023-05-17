@@ -73,7 +73,7 @@ class CellierController extends Controller
             //$cellier->id_user = Auth::user()->id;
             $cellier->save();
 
-            return response()->json(['status' => 'success'], Response::HTTP_OK);
+            return response()->json(['status' => 'success', 'id' => $cellier->id], Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

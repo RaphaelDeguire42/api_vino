@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cellier_Bouteille;
 use App\Models\Bouteille;
+use App\Services\CellierBouteilleQuery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,18 @@ class CellierBouteilleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Cellier_bouteille::all();
+        $filtre = new CellierBouteilleQuery();
+        $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
+
+        Cellier_Bouteille::where([['column', 'operator', 'value']]);
+
+        if (count($paramQuery) === 0){
+            return Cellier_Bouteille::all();
+        } else {
+            return Cellier_Bouteille::where($paramQuery)->get();
+        }
     }
 
     /**
