@@ -56,9 +56,10 @@
 
 	function recupereInfo($noeud) {
 		$info = new stdClass();
-		$img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
-		$info -> img = $noeud -> getElementsByTagName("img") -> item(0) -> getAttribute('src');
-		$info->img = strstr($info->img, "?", true);
+		$xpath = new DOMXPath($noeud->ownerDocument);
+		$imgElement = $xpath->query(".//img[contains(@class, 'product-image-photo')]", $noeud)->item(0);
+		$img = $imgElement ? $imgElement->getAttribute('src') : '';
+		$info->img = strstr($img, "?", true);
 		$a_titre = $noeud -> getElementsByTagName("a") -> item(0);
 		$info -> url = $a_titre->getAttribute('href');
         $nom = $noeud -> getElementsByTagName("a")->item(1)->textContent;
@@ -114,7 +115,7 @@
 			'pays' => $result['pays'],
 			'code_saq' => $result['code_SAQ'],
 			'prix' => $result['prix'],
-			'img' => $result["img"]?? '/img/placehloder_bottle.webp'
+			'img' => $result["img"]?? 'assets/img/placehloder_bottle.webp'
 		);
 		return $return_arr;
 

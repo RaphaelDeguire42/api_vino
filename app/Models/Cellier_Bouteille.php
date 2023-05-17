@@ -9,6 +9,15 @@ class Cellier_Bouteille extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id_bouteille',
+        'id_cellier',
+        'quantite',
+        'date_achat',
+        'garde',
+        'millesime',
+    ];
+
     public function bouteillesDansCellier_bouteilles() {
         return $this->hasmany(Bouteille::class);
     }

@@ -15,11 +15,14 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    public function dataCrawl(Request $request){
+    public function index(){
         require_once(('crawler.php'));
         $idLastBouteille = Bouteille::max('id');
-        $page = $request->nombreBouteille + $idLastBouteille + 1;
+        // changer nombreAImporter pour le nombre a importer
+        $nombreAImporter = 5;
+        $page = $nombreAImporter + $idLastBouteille + 1;
         $nombre = 24;
+        $bouteilles = [];
 
         for ($i=$idLastBouteille+1; $i < $page; $i++) {
             $produit = getProduits($nombre,$i);
@@ -42,17 +45,11 @@ class AdminController extends Controller
                 $bouteille->id_pays = $pays->id;
                 $bouteille->id_type = $type->id;
                 $bouteille->save();
+                array_push($bouteilles, $bouteille);
             } else {
                 $page++;
             }
         }
-        return redirect()->route('bouteille.index')->with('success', "Bouteilles importées !");
+        return response()->json(['nouvellesBouteilles' => $bouteilles]);
     }
-
-    public function nouvelleErreur(Request $request){
-        $erreur = new Erreur();
-        $erreur->erreur = $request->erreur;
-        $erreur->save();
-    }
-
 }

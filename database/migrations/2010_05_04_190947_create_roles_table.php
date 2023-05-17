@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +16,17 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
+            $table->string('role');
             $table->timestamps();
         });
+        
+        $roles = array('admin', 'client');
+
+        foreach ($roles as $role) {
+            $nouveauRole = new Role();
+            $nouveauRole->role = $role;
+            $nouveauRole->save();
+        }
     }
 
     /**
