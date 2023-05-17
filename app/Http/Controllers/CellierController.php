@@ -7,9 +7,7 @@ use App\Models\Pastille_couleur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CellierQuery;
-
-
-
+use Illuminate\Http\Response;
 
 class CellierController extends Controller
 {
@@ -25,13 +23,14 @@ class CellierController extends Controller
         $filtre = new CellierQuery();
         $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
 
-        Cellier::where([['column', 'operator', 'value']]);
+        $celliers = Cellier::join('pastille_couleurs', 'celliers.id_couleur', '=', 'pastille_couleurs.id')
+            ->select('celliers.*', 'pastille_couleurs.hex_value')
+            ->where($paramQuery)
+            ->get();
 
-
-            return Cellier::where($paramQuery)->get();
-        
-
+        return $celliers;
     }
+
 
     /**
      * Display a listing of the resource.
@@ -43,7 +42,7 @@ class CellierController extends Controller
         $userId = $request->input('id_user');
         var_dump($request);
         $celliers = Cellier::where('id_user', $userId)->get();
-        
+
         return response()->json($celliers);
     } */
 
@@ -65,14 +64,19 @@ class CellierController extends Controller
      */
     public function store(Request $request)
     {
-        $cellier = new Cellier();
-        $cellier->nom = $request->nom;
-        $cellier->id_couleur = $request->id_couleur;
-        $cellier->id_user = Auth::user()->id;
-        $cellier->save();
+        try {
+            $cellier = new Cellier();
+            $cellier->nom = $request->nom;
+            $cellier->id_couleur = $request->id_couleur;
+            // Temporaire car pas encore de user
+            $cellier->id_user = 1;
+            //$cellier->id_user = Auth::user()->id;
+            $cellier->save();
 
-        return redirect()->route('cellier.index', Auth::user()->id);
-
+            return response()->json(['status' => 'success'], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
 
