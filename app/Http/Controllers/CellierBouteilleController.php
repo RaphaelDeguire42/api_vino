@@ -67,6 +67,7 @@ class CellierBouteilleController extends Controller
             $bouteille->url_img = "";
             $bouteille->url_saq = "";
             $bouteille->prix = 0;
+            $bouteille->actif = false;
             $format = Format::firstOrCreate(['format' => $request['format']]);
             $pays = Pays::firstOrCreate(['pays' => $request['pays']]);
             $type = Type::firstOrCreate(['type' => $request['type']]);
