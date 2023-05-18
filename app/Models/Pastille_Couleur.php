@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pastille_couleur extends Model
 {
     use HasFactory;
+
+
+
 }
