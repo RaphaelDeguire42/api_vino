@@ -39,14 +39,10 @@ class CellierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  /*   public function show(Request $request)
+     public function show(Cellier $cellier)
     {
-        $userId = $request->input('id_user');
-        var_dump($request);
-        $celliers = Cellier::where('id_user', $userId)->get();
-
-        return response()->json($celliers);
-    } */
+        
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -100,9 +96,17 @@ class CellierController extends Controller
      * @param  \App\Models\Cellier  $cellier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cellier $cellier)
+    public function update(UpdateCellierRequest $request, Cellier $cellier)
     {
-        //
+        try {
+
+            $cellier->update($request->all());
+
+            return response()->json(['id' => $cellier->id, 'message' => 'Cellier modifiée']);
+        } catch (\Exception $e) 
+        {
+            return response()->json(['message' => 'La modification a échoué', 'error' => $e->getMessage()], 500);
+        }
     }
 
     /**
