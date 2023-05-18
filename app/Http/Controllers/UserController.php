@@ -32,7 +32,7 @@ class UserController extends Controller
     public function show(Request $request, User $user)
     {
        
-        $incluCelliers = $request->query('incluCelliers')
+        //$incluCelliers = $request->query('incluCelliers')
 
 
         return response()->json($user);
