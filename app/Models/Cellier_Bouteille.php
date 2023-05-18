@@ -25,7 +25,9 @@ class Cellier_Bouteille extends Model
         return $this->hasmany(Bouteille::class);
     }
 
+
+
     public function celliersDansCellier_bouteilles() {
-        return $this->hasmany(Cellier::class);
+        return $this->belongsTo(Cellier::class);
     }
 }

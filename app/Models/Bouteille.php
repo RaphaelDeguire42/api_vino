@@ -34,8 +34,9 @@ class Bouteille extends Model
         return $this->hasOne('App\Models\Format', 'id', 'id_format');
     }
 
-    public function cellier() {
-        return $this->belongsTo(Cellier::class);
+
+    public function bouteillesDansCellierB() {
+        return $this->belongsTo(Cellier_Bouteilles::class);
     }
 
     public function noteCommentaire() {

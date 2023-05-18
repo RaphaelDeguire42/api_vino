@@ -24,6 +24,10 @@ class Cellier extends Model
         return $this->hasmany(Bouteille::class);
     }
 
+    public function cellierBouteilles() {
+        return $this->hasmany(Cellier_Bouteille::class, 'id_cellier');
+    }
+
     public function couleur(){
         return $this->belongsTo(Pastille_couleur::class, 'id_couleur');
     }
