@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -35,7 +35,7 @@ class UserController extends Controller
         //$incluCelliers = $request->query('incluCelliers')
 
 
-        return response()->json($user);
+        return new UserResource($user);
     }
 
 
