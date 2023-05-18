@@ -3,10 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\PastilleCouleurResource;
 
-
-class CellierResource extends JsonResource
+class PastilleCouleurResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +16,8 @@ class CellierResource extends JsonResource
     {
         return [
             'id'            => $this->id,
-            'id_user'       => $this->id_user,
+            'hex_value'     => $this->id_user,
             'nom'           => $this->nom,
-            'id_couleur'    => $this->id_couleur,
-            'hex_value'     => $this->cellierHasCouleur->hex_value
         ];
     }
 }
