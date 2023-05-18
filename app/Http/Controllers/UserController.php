@@ -31,8 +31,9 @@ class UserController extends Controller
 
     public function show(Request $request, User $user)
     {
-        // Perform any additional checks or authorization logic here
-        // to ensure the user has the necessary permissions to view.
+       
+        $incluCelliers = $request->query('incluCelliers')
+
 
         return response()->json($user);
     }
