@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             'id'        => $this->id,
             'name'      => $this->name,
             'email'     => $this->email,
-            
+            'celliers'  => CellierResource::collection($this->whenLoaded('celliers'))
         ];
     }
 }

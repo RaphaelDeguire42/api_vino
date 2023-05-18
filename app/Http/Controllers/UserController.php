@@ -22,7 +22,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return new UserCollection(User::all());
+        $users = User::all();
+        return new UserCollection($users);
     }
 
     public function create(Request $request)
@@ -32,11 +33,7 @@ class UserController extends Controller
 
     public function show(Request $request, User $user)
     {
-       
-        //$incluCelliers = $request->query('incluCelliers')
-
-
-        return new UserResource($user);
+        return new UserResource($user->loadMissing('celliers'));
     }
 
 
