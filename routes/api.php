@@ -36,9 +36,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::apiResource('crawl', AdminController::class); //route pour le crawler
     Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
     Route::apiResource('couleurs', PastilleCouleurController::class); //route pour les couleurs
-});
-*/
-Route::group(['namespace' => 'App\Http\Controllers'], function(){
+});*/
+
+ Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::apiResource('bouteilles', BouteilleController::class); // CRUD pour Bouteilles
     Route::apiResource('users', UserController::class); // CRUD pour Users
     Route::apiResource('celliers', CellierController::class); //CRUD pour Celliers
@@ -49,4 +49,4 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::apiResource('crawl', AdminController::class); //route pour le crawler
     Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
     Route::apiResource('couleurs', PastilleCouleurController::class); //route pour les couleurs
-});
+}); 
