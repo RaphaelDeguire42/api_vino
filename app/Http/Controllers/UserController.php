@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -21,7 +22,8 @@ class UserController extends Controller
 
     public function index()
     {
-        
+        $users = User::all();
+        return new UserCollection($users);
     }
 
     public function create(Request $request)
@@ -31,10 +33,7 @@ class UserController extends Controller
 
     public function show(Request $request, User $user)
     {
-        // Perform any additional checks or authorization logic here
-        // to ensure the user has the necessary permissions to view.
-
-        return response()->json($user);
+        return new UserResource($user->loadMissing('celliers'));
     }
 
 
@@ -68,20 +67,15 @@ class UserController extends Controller
 
 
 
-    public function update(Request $request)
+    public function update(Request $request, User $user)
     {
+    $validatedData = $request->validate([
+        'name' => 'sometimes|string|max:255',
+        'email' => 'sometimes|string|email|max:255|unique:users,email,' . $user->id,
+        'nouveau_password' => 'nullable|string|min:8',
+    ]);
 
-        $user = Auth::user();
-
-        if (!Hash::check($request->input('ancien_password'), $user->password)) {
-            return redirect()->back()->withErrors(['ancien_password' => 'Le mot de passe est incorrect']);
-        }
-
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'nouveau_password' => 'nullable|string|min:8',
-        ]);
+    try {
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
 
@@ -92,12 +86,18 @@ class UserController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Les informations du compte ont été mises à jour.']);
+    } catch (\Exception $e) {
+        // Handle any exceptions that occur during the update process
+        // and return an appropriate error response.
+       return response()->json(['message' => 'Une erreur s\'est produite lors de la mise à jour du compte.'], 500);
     }
-
-
+}
 
     public function destroy(Request $request, $id)
     {
+
+        // TODO on cascade sur le delete parce que ca me laisse pas deleter...
+
         $user = User::findOrFail($id);
 
         // A checker le auth pour soit un admin soit le proprio du compte

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CellierQuery;
 use Illuminate\Http\Response;
+use App\Http\Resources\CellierResource;
+use App\Http\Resources\CellierCollection;
 
 class CellierController extends Controller
 {
