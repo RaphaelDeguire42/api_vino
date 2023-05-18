@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -21,7 +22,7 @@ class UserController extends Controller
 
     public function index()
     {
-        
+        return new UserCollection(User::all());
     }
 
     public function create(Request $request)
