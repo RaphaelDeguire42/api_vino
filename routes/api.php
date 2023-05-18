@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
  Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::apiResource('bouteilles', BouteilleController::class); // CRUD pour Bouteilles
+    Route::apiResource('users', UserController::class); // CRUD pour Users
     Route::apiResource('celliers', CellierController::class); //CRUD pour Celliers
     Route::apiResource('cellier-bouteilles', CellierBouteilleController::class); //route pour les cellier_bouteille
     Route::apiResource('types', TypeController::class); //CRUD pour Types

@@ -19,28 +19,39 @@ class UserController extends Controller
     * Modification compte
     */
 
-    public function gestionCompte()
+    public function index()
     {
-        return view('user.compte');
+        
     }
 
-    public function creationCompte(Request $request)
+    public function create(Request $request)
     {
-        return view('user.creation');
+       //
     }
+
+    public function show(Request $request, User $user)
+    {
+        // Perform any additional checks or authorization logic here
+        // to ensure the user has the necessary permissions to view.
+
+        return response()->json($user);
+    }
+
+
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed', // TODO remettre les validations dans une request
+            'password' => 'required|min:8', // TODO remettre les validations dans une request
         ]);
 
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
+            'id_role' => 1,
         ]);
 
         $cellier = new Cellier();
@@ -51,13 +62,13 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return redirect('/')->with('success', 'Bienvenue parmis nous ' . $validatedData['name'] . '!');
+        return response()->json(['message' => 'Nouveau compte créé avec succès.']);
     }
 
 
 
 
-    public function modificationCompte(Request $request)
+    public function update(Request $request)
     {
 
         $user = Auth::user();
@@ -80,7 +91,20 @@ class UserController extends Controller
 
         $user->save();
 
-    return redirect()->back()->with('success', 'Les informations du compte ont été mises à jour.');
+        return response()->json(['message' => 'Les informations du compte ont été mises à jour.']);
+    }
+
+
+
+    public function destroy(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // A checker le auth pour soit un admin soit le proprio du compte
+
+        $user->delete();
+
+        return response()->json(['message' => 'Utilisateur supprimé avec succès']);
     }
 
 }
