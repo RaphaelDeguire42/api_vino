@@ -81,9 +81,14 @@ class CellierBouteilleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cellier_Bouteille $cellierBouteille)
     {
-        //
+        try 
+        {
+            return response()->json($cellierBouteille);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Je ne trouve pas cette bouteille', 'error' => $e->getMessage()], 500);
+        }
     }
 
     /**
