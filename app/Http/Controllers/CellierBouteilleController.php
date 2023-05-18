@@ -7,6 +7,9 @@ use App\Models\Bouteille;
 use App\Services\CellierBouteilleQuery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateCellierBouteilleRequest;
+
+
 
 class CellierBouteilleController extends Controller
 {
@@ -101,9 +104,18 @@ class CellierBouteilleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCellierBouteilleRequest $request, Cellier_Bouteille $cellierBouteille)
     {
-        //
+
+        try {
+
+            $cellierBouteille->update($request->all());
+
+            return response()->json(['id' => $cellierBouteille->id, 'message' => 'Bouteille modifiée']);
+        } catch (\Exception $e) 
+        {
+            return response()->json(['message' => 'La modification a échoué', 'error' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -112,8 +124,16 @@ class CellierBouteilleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cellier_Bouteille $cellierBouteille)
     {
-        //
+        try {
+           
+            $cellierBouteille->delete();
+
+            return response()->json(['message' => 'La bouteille de ce cellier a été supprimé avec succès']);
+        } catch (\Exception $e) 
+        {
+            return response()->json(['message' => 'La suppression n\'a pas fonctionné', 'error' => $e->getMessage()], 500);
+        }
     }
 }

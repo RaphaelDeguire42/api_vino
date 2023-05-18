@@ -12,6 +12,9 @@ class Cellier_Bouteille extends Model
     protected $fillable = [
         'id_bouteille',
         'id_cellier',
+        'id_pays',
+        'nom',
+        'url_img',
         'quantite',
         'date_achat',
         'garde',
