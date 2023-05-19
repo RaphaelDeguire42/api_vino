@@ -8,8 +8,9 @@ use App\Services\CellierBouteilleQuery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateCellierBouteilleRequest;
-
-
+use App\Models\Format;
+use App\Models\Pays;
+use App\Models\Type;
 
 class CellierBouteilleController extends Controller
 {
@@ -53,12 +54,29 @@ class CellierBouteilleController extends Controller
         $cellier_bouteille = new Cellier_Bouteille();
         $cellier_bouteille->id_bouteille = $request->has('id_bouteille') ? $request['id_bouteille'] : null;
         $cellier_bouteille->id_cellier = $request['id_cellier'];
+        $cellier_bouteille->nom = $request['nom'];
         $cellier_bouteille->quantite = $request['quantite'];
         $cellier_bouteille->date_achat = Carbon::parse($request['date_achat'])->format('Y-m-d H:i:s');
         $cellier_bouteille->garde = $request['garde'];
         $cellier_bouteille->millesime = $request['millesime'];
 
-        if ($request->has('id_bouteille')) {
+        if (!$request->has('id_bouteille') || $request->input('id_bouteille') === null) {
+            $bouteille = new Bouteille();
+            $bouteille->nom = $request['nom'];
+            $bouteille->code_saq = "";
+            $bouteille->url_img = "";
+            $bouteille->url_saq = "";
+            $bouteille->prix = 0;
+            $bouteille->actif = false;
+            $format = Format::firstOrCreate(['format' => $request['format']]);
+            $pays = Pays::firstOrCreate(['pays' => $request['pays']]);
+            $type = Type::firstOrCreate(['type' => $request['type']]);
+            $bouteille->id_format = $format->id;
+            $bouteille->id_pays = $pays->id;
+            $bouteille->id_type = $type->id;
+            $bouteille->save();
+            $cellier_bouteille->id_bouteille = $bouteille->id;
+        } else {
             $bouteille = Bouteille::find($request['id_bouteille']);
             if ($bouteille) {
                 // Fill missing data with bouteille data
@@ -75,6 +93,7 @@ class CellierBouteilleController extends Controller
 
 
 
+
     /**
      * Display the specified resource.
      *
@@ -83,7 +102,7 @@ class CellierBouteilleController extends Controller
      */
     public function show(Cellier_Bouteille $cellierBouteille)
     {
-        try 
+        try
         {
             return response()->json($cellierBouteille);
         } catch (\Exception $e) {
@@ -117,7 +136,7 @@ class CellierBouteilleController extends Controller
             $cellierBouteille->update($request->all());
 
             return response()->json(['id' => $cellierBouteille->id, 'message' => 'Bouteille modifiée']);
-        } catch (\Exception $e) 
+        } catch (\Exception $e)
         {
             return response()->json(['message' => 'La modification a échoué', 'error' => $e->getMessage()], 500);
         }
@@ -132,11 +151,11 @@ class CellierBouteilleController extends Controller
     public function destroy(Cellier_Bouteille $cellierBouteille)
     {
         try {
-           
+
             $cellierBouteille->delete();
 
             return response()->json(['message' => 'La bouteille de ce cellier a été supprimé avec succès']);
-        } catch (\Exception $e) 
+        } catch (\Exception $e)
         {
             return response()->json(['message' => 'La suppression n\'a pas fonctionné', 'error' => $e->getMessage()], 500);
         }
