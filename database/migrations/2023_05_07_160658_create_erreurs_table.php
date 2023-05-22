@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('erreurs', function (Blueprint $table) {
             $table->id();
             $table->text('erreur');
+            $table->unsignedBigInteger('id
+            _user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
         });
     }

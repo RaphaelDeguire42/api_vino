@@ -37,6 +37,7 @@ class ErreurController extends Controller
     {
         $erreur = new Erreur();
         $erreur->erreur = $request->erreur;
+        $erreur->id_user = $request->id_user;
         $erreur->save();
     }
 
