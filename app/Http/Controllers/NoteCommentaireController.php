@@ -14,17 +14,9 @@ class NoteCommentaireController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $note_Commentaires = Note_Commentaire::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($note_Commentaires, 200);
     }
 
     /**
@@ -33,9 +25,18 @@ class NoteCommentaireController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+   
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'id_bouteille' => 'required',
+            'note' => 'required|integer',
+            'commentaire' => 'required|string',
+        ]);
+
+        $note_Commentaire = Note_Commentaire::create($data);
+
+        return response()->json($note_Commentaire, 201);
     }
 
     /**
@@ -46,18 +47,7 @@ class NoteCommentaireController extends Controller
      */
     public function show(Note_Commentaire $note_Commentaire)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Note_Commentaire  $note_Commentaire
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Note_Commentaire $note_Commentaire)
-    {
-        //
+        return response()->json($note_Commentaire, 200);
     }
 
     /**
@@ -67,11 +57,18 @@ class NoteCommentaireController extends Controller
      * @param  \App\Models\Note_Commentaire  $note_Commentaire
      * @return \Illuminate\Http\Response
      */
+   
     public function update(Request $request, Note_Commentaire $note_Commentaire)
     {
-        //
-    }
+        $data = $request->validate([
+            'note' => 'required|integer',
+            'commentaire' => 'required|string',
+        ]);
 
+        $note_Commentaire->update($data);
+
+        return response()->json($note_Commentaire, 200);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -80,6 +77,8 @@ class NoteCommentaireController extends Controller
      */
     public function destroy(Note_Commentaire $note_Commentaire)
     {
-        //
+        $note_Commentaire->delete();
+
+        return response()->json(null, 204);
     }
 }
