@@ -44,6 +44,7 @@ class AdminController extends Controller
                 $bouteille->id_format = $format->id;
                 $bouteille->id_pays = $pays->id;
                 $bouteille->id_type = $type->id;
+                $bouteille->actif = true;
                 $bouteille->save();
                 $bouteille->id = $bouteille->id;
                 array_push($bouteilles, $bouteille);
