@@ -33,7 +33,13 @@ class UserController extends Controller
 
     public function show(Request $request, User $user)
     {
-        return new UserResource($user->loadMissing('celliers'));
+        $incluCelliers = $request->query('incluCelliers');
+        if ($incluCelliers)
+        {
+            return new UserResource($user->loadMissing('celliers'));
+        }
+
+        return new UserResource($user);
     }
 
 
