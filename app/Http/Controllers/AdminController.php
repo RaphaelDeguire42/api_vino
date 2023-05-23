@@ -45,6 +45,7 @@ class AdminController extends Controller
                 $bouteille->id_pays = $pays->id;
                 $bouteille->id_type = $type->id;
                 $bouteille->save();
+                $bouteille->id = $bouteille->id;
                 array_push($bouteilles, $bouteille);
             } else {
                 $page++;
@@ -52,5 +53,5 @@ class AdminController extends Controller
         }
         return response()->json(['nouvellesBouteilles' => $bouteilles]);
     }
-    
+
 }
