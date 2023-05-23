@@ -17,15 +17,6 @@ class NoteCommentaireController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -50,28 +41,24 @@ class NoteCommentaireController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Note_Commentaire  $note_Commentaire
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Note_Commentaire $note_Commentaire)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Note_Commentaire  $note_Commentaire
      * @return \Illuminate\Http\Response
      */
+   
     public function update(Request $request, Note_Commentaire $note_Commentaire)
     {
-        //
-    }
+        $data = $request->validate([
+            'note' => 'required|integer',
+            'commentaire' => 'required|string',
+        ]);
 
+        $note_Commentaire->update($data);
+
+        return response()->json($note_Commentaire, 200);
+    }
     /**
      * Remove the specified resource from storage.
      *
