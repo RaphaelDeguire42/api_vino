@@ -51,6 +51,8 @@ class CellierBouteilleController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $cellier_bouteille = new Cellier_Bouteille();
         $cellier_bouteille->id_bouteille = $request->has('id_bouteille') ? $request['id_bouteille'] : null;
         $cellier_bouteille->id_cellier = $request['id_cellier'];
@@ -59,6 +61,19 @@ class CellierBouteilleController extends Controller
         $cellier_bouteille->date_achat = Carbon::parse($request['date_achat'])->format('Y-m-d H:i:s');
         $cellier_bouteille->garde = $request['garde'];
         $cellier_bouteille->millesime = $request['millesime'];
+
+
+        $existingBottle = Cellier_Bouteille::where('nom', $request['nom'])
+        ->where('millesime', $request['millesime'])
+        ->where('id_cellier', $request['id_cellier'])
+        ->first();
+
+        if ($existingBottle) {
+            $existingBottle->quantite += $request['quantite'];
+            $existingBottle->save();
+
+            return response()->json(['message' => 'Cette bouteille existe déjà dans votre cellier. La quantité a été ajustée.']);
+        }
 
         if (!$request->has('id_bouteille') || $request->input('id_bouteille') === null) {
             $bouteille = new Bouteille();
