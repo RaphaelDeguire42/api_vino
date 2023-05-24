@@ -24,20 +24,13 @@ class CellierController extends Controller
     {
         $filtre = new CellierQuery();
         $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
-/*  
+
         $celliers = Cellier::join('pastille_couleurs', 'celliers.id_couleur', '=', 'pastille_couleurs.id')
             ->select('celliers.*', 'pastille_couleurs.hex_value')
             ->where($paramQuery)
-            ->get(); 
-             */
-        $incluBouteilles = $request->query('incluBouteilles');
+            ->get();
 
-
-            if ($incluBouteilles)
-            {
-                return new CellierResource($cellier->loadMissing('couleur', 'cellierBouteilles'));
-            }
-        return new CellierResource::collection($celliers);
+        return $celliers;
     }
 
 
