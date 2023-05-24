@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
             'id_format' => ['eq'],
             'id_pays' => ['eq'],
             'id_type' => ['eq'],
+            'actif' => ['eq'],
         ];
 
     protected $operateursMap = [

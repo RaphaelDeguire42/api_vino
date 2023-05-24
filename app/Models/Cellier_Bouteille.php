@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Cellier_Bouteille extends Model
 {
     use HasFactory;
@@ -21,10 +22,12 @@ class Cellier_Bouteille extends Model
         'millesime',
     ];
 
+
     public function bouteillesDansCellier_bouteilles() {
-        return $this->hasmany(Bouteille::class);
+        return $this->hasOne(Bouteille::class, 'id', 'id_bouteille');
     }
 
+    //TODO RELATION POUR AFFICHER PAYS
 
 
     public function celliersDansCellier_bouteilles() {

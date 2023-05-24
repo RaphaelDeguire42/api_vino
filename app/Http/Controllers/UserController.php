@@ -34,6 +34,7 @@ class UserController extends Controller
     public function show(Request $request, User $user)
     {
         $incluCelliers = $request->query('incluCelliers');
+        $incluBouteilles = $request->query('incluBouteilles');
         if ($incluCelliers)
         {
             return new UserResource($user->loadMissing('celliers'));
