@@ -15,7 +15,7 @@ class CellierBouteilleResource extends JsonResource
     public function toArray($request)
     {
         $this->load(['bouteillesDansCellier_bouteilles']);
-        //var_dump($this);
+
         return [
             'id'                    => $this->id,
             'nom'                   => $this->nom,
@@ -31,7 +31,6 @@ class CellierBouteilleResource extends JsonResource
             'date_achat'            => $this->date_achat,
             'garde'                 => $this->garde,
             'millesime'             => $this->millesime,
-
 
         ];
     }
