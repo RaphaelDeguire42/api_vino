@@ -22,8 +22,12 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        return new UserCollection($users);
+        try {
+            $users = User::all();
+            return new UserCollection($users);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Une erreur s\'est produite durant la requête'], 500);
+        }
     }
 
     public function create(Request $request)
@@ -33,14 +37,19 @@ class UserController extends Controller
 
     public function show(Request $request, User $user)
     {
-        $incluCelliers = $request->query('incluCelliers');
-        $incluBouteilles = $request->query('incluBouteilles');
-        if ($incluCelliers)
-        {
-            return new UserResource($user->loadMissing('celliers'));
+        try {
+            $incluCelliers = $request->query('incluCelliers');
+            $incluBouteilles = $request->query('incluBouteilles');
+    
+            if ($incluCelliers) {
+                return new UserResource($user->loadMissing('celliers'));
+            }
+    
+            return new UserResource($user);
+        } catch (\Exception $e) {
+            
+            return response()->json(['message' => 'Une erreur s\'est produite durant la requête'], 500);
         }
-
-        return new UserResource($user);
     }
 
 
@@ -94,20 +103,18 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Les informations du compte ont été mises à jour.']);
     } catch (\Exception $e) {
-        // Handle any exceptions that occur during the update process
-        // and return an appropriate error response.
-       return response()->json(['message' => 'Une erreur s\'est produite lors de la mise à jour du compte.'], 500);
+        return response()->json(['message' => 'Une erreur s\'est produite lors de la mise à jour du compte.'], 500);
     }
 }
 
     public function destroy(Request $request, $id)
     {
 
-        // TODO on cascade sur le delete parce que ca me laisse pas deleter...
-
         $user = User::findOrFail($id);
 
-        // A checker le auth pour soit un admin soit le proprio du compte
+        $user->celliers()->delete();
+
+        // A checker le auth pour soit un admin soit le proprio du compte TODO
 
         $user->delete();
 

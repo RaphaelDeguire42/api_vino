@@ -42,12 +42,7 @@ class CellierController extends Controller
     return CellierResource::collection($celliers);
 }
 
-
-
-
-
 /* 
-
     public function index(Request $request)
     {
         $filtre = new CellierQuery();
@@ -65,14 +60,6 @@ class CellierController extends Controller
     
         return CellierResource::collection($celliers);
         
-
-
-
-
-
-
-
-
         $celliers = Cellier::join('pastille_couleurs', 'celliers.id_couleur', '=', 'pastille_couleurs.id')
             ->select('celliers.*', 'pastille_couleurs.hex_value')
             ->where($paramQuery)
