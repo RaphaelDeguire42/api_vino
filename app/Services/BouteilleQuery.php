@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
         protected $champsPermis = [
             'id' => ['eq', 'gt'],
             'nom' => ['eq', 'lk'],
-            'prix' => ['eq', 'gt', 'lt', 'lte', 'gte'],
+            'prix' => ['eq', 'gt', 'lt', 'lte', 'gte', 'desc', 'asc'],
             'id_format' => ['eq'],
             'id_pays' => ['eq'],
             'id_type' => ['eq'],

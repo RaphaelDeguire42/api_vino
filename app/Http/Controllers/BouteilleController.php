@@ -19,18 +19,21 @@ class BouteilleController extends Controller
     {
         $filtre = new BouteilleQuery();
         $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
-
+    
         $query = Bouteille::query();
-
-        if (count($paramQuery) === 0) {
-            return $query->get();
-        } else {
-            foreach ($paramQuery as $param) {
-                $query->where($param[0], $param[1], $param[2]);
-            }
-            return $query->get();
+    
+        $ordre = $request->query('prix');
+        
+        foreach ($paramQuery as $param) {
+            $query->where($param[0], $param[1], $param[2]);
         }
+    
 
+        if ($ordre) {
+            $query->orderBy('prix', $ordre);
+        }
+    
+        return $query->get();
     }
 
     /**
