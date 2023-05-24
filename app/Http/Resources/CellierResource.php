@@ -16,6 +16,13 @@ class CellierResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        $relationships = ['couleur'];
+        if ($this->relationLoaded('cellierBouteilles')) {
+            $relationships[] = 'cellierBouteilles';
+        }
+
+
         return [
             'id'                    => $this->id,
             'id_user'               => $this->id_user,

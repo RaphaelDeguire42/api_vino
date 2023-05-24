@@ -21,17 +21,65 @@ class CellierController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
+{
+    $filtre = new CellierQuery();
+    $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
+
+    $celliers = Cellier::query();
+
+    // Apply the filters to the query
+    foreach ($paramQuery as $filter) {
+        $celliers->where($filter[0], $filter[1], $filter[2]);
+    }
+
+    $incluBouteilles = $request->query('incluBouteilles');
+    if ($incluBouteilles) {
+        $celliers->with('cellierBouteilles');
+    }
+
+    $celliers = $celliers->with('couleur')->get();
+
+    return CellierResource::collection($celliers);
+}
+
+
+
+
+
+/* 
+
+    public function index(Request $request)
     {
         $filtre = new CellierQuery();
         $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
+
+        $celliers = Cellier::query($paramQuery);
+    
+
+        $incluBouteilles = $request->query('incluBouteilles');
+        if ($incluBouteilles) {
+            $celliers->with('cellierBouteilles');
+        }
+    
+        $celliers = $celliers->with('couleur')->get();
+    
+        return CellierResource::collection($celliers);
+        
+
+
+
+
+
+
+
 
         $celliers = Cellier::join('pastille_couleurs', 'celliers.id_couleur', '=', 'pastille_couleurs.id')
             ->select('celliers.*', 'pastille_couleurs.hex_value')
             ->where($paramQuery)
             ->get();
 
-        return $celliers;
-    }
+        return $celliers; 
+    } */
 
 
     /**
