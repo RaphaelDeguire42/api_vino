@@ -39,9 +39,14 @@ class CellierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function show(Cellier $cellier)
+     public function show(Cellier $cellier, Request $request)
     {
-        return new CellierResource($cellier->loadMissing('couleur', 'cellierBouteilles'));
+        $incluBouteilles = $request->query('incluBouteilles');
+        if ($incluBouteilles)
+        {
+            return new CellierResource($cellier->loadMissing('couleur', 'cellierBouteilles'));
+        }
+        return new CellierResource($cellier->loadMissing('couleur'));
     } 
 
     /**

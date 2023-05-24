@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\PastilleCouleurResource;
-
+use App\Http\Resources\CellierBouteilleResource;
 
 class CellierResource extends JsonResource
 {
@@ -22,7 +22,7 @@ class CellierResource extends JsonResource
             'nom'                   => $this->nom,
             'id_couleur'            => $this->id_couleur,
             'hex_value'             => $this->cellierHasCouleur->hex_value,
-            'bouteillesDuCellier'   => $this->cellierBouteilles
+            'bouteillesDuCellier'   => CellierBouteilleResource::collection($this->whenLoaded('cellierBouteilles'))
         ];
     }
 }
