@@ -26,35 +26,37 @@ use Illuminate\Support\Facades\DB;
         'lk'    => 'like',
     ];
 
-    public function transform(Request $request){
-        $eloquentArray = [];
+    public function transform(Request $request)
+{
+    $eloquentArray = [];
 
-        foreach ($this->champsPermis as $col => $operators) {
-            $query = $request->query($col);
-            
-            if(!isset($query)) { continue; }
-           
-            $column = $col;
+    foreach ($this->champsPermis as $col => $operators) {
+        $query = $request->query($col);
 
-            foreach ($operators as $operator){
-                if ((isset($query[$operator]) && ($operator) === 'lk')){
-                    
-                    $eloquentArray[] = [$column, $this->operateursMap[$operator], "%" . $query[$operator] . "%"];
-                
-                }else if (isset($query[$operator])) 
-                {
-                    $eloquentArray[] = [$column, $this->operateursMap[$operator], $query[$operator]];
-                }
-            }
-
+        if (!isset($query)) {
+            continue;
         }
 
-        return $eloquentArray;
+        $column = $col;
+
+        foreach ($operators as $operator) {
+            if (isset($query[$operator])) {
+                $values = is_array($query[$operator]) ? $query[$operator] : [$query[$operator]];
+                foreach ($values as $value) {
+                    if ($operator === 'lk') {
+                        $eloquentArray[] = [$column, $this->operateursMap[$operator], "%" . $value . "%"];
+                    } else {
+                        $eloquentArray[] = [$column, $this->operateursMap[$operator], $value];
+                    }
+                }
+            }
+        }
+    }
+
+    return $eloquentArray;
+}
 }
 
-
-
-    }
 
 
 

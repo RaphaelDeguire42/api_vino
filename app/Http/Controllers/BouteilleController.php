@@ -20,12 +20,16 @@ class BouteilleController extends Controller
         $filtre = new BouteilleQuery();
         $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
 
-        Bouteille::where([['column', 'operator', 'value']]);
+        $query = Bouteille::query();
 
-        if (count($paramQuery) === 0){
-            return Bouteille::all();
+        if (count($paramQuery) === 0) {
+            return $query->get();
         } else {
-            return Bouteille::where($paramQuery)->get();
+            foreach ($paramQuery as $param) {
+                $query->where($param[0], $param[1], $param[2]);
+            }
+            var_dump($paramQuery);
+            return $query->get();
         }
 
     }
