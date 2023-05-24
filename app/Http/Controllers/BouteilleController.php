@@ -28,7 +28,6 @@ class BouteilleController extends Controller
             foreach ($paramQuery as $param) {
                 $query->where($param[0], $param[1], $param[2]);
             }
-            var_dump($paramQuery);
             return $query->get();
         }
 
