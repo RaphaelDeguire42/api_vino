@@ -51,6 +51,16 @@ class CellierBouteilleController extends Controller
      */
     public function store(Request $request)
     {
+
+        $existingBouteille = Cellier_Bouteille::where('nom', $request['nom'])
+        ->where('millesime', $request['millesime'])
+        ->where('id_cellier', $request['id_cellier'])
+        ->first();
+
+        if ($existingBouteille) {
+            return response()->json(['message' => 'Cette bouteille existe déjà dans votre cellier'], 400);
+        }
+
         $cellier_bouteille = new Cellier_Bouteille();
         $cellier_bouteille->id_bouteille = $request->has('id_bouteille') ? $request['id_bouteille'] : null;
         $cellier_bouteille->id_cellier = $request['id_cellier'];
