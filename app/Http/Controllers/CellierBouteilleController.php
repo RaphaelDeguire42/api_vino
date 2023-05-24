@@ -132,12 +132,13 @@ class CellierBouteilleController extends Controller
     {
 
         try {
+            $date = Carbon::parse($request->input('date_achat'))->toDateTimeString();
 
-            $cellierBouteille->update($request->all());
+            $cellierBouteille->date_achat = $date;
+            $cellierBouteille->update($request->except('date_achat'));
 
             return response()->json(['id' => $cellierBouteille->id, 'message' => 'Bouteille modifiée']);
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json(['message' => 'La modification a échoué', 'error' => $e->getMessage()], 500);
         }
     }
