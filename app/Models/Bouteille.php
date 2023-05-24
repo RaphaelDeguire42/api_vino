@@ -9,7 +9,7 @@ class Bouteille extends Model
 {
     use HasFactory;
 
-    
+
     protected $fillable = [
         'id',
         'nom',
@@ -25,7 +25,7 @@ class Bouteille extends Model
     public function bouteilleHasPays(){
         return $this->hasOne('App\Models\Pays', 'id', 'id_pays');
     }
-    
+
     public function bouteilleHasType(){
         return $this->hasOne('App\Models\Type', 'id', 'id_type');
     }
@@ -41,5 +41,20 @@ class Bouteille extends Model
 
     public function noteCommentaire() {
         return $this->hasmany(Note_Commentaire::class);
+    }
+    
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'id_type');
+    }
+
+    public function format()
+    {
+        return $this->belongsTo(Format::class, 'id_format');
+    }
+
+    public function pays()
+    {
+        return $this->belongsTo(Pays::class, 'id_pays');
     }
 }

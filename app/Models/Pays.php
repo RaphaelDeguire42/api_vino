@@ -11,4 +11,9 @@ class Pays extends Model
     protected $fillable = [
         'pays'
     ];
+
+    public function bouteille()
+    {
+        return $this->hasOne(Bouteille::class, 'id_pays');
+    }
 }

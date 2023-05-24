@@ -11,4 +11,9 @@ class Type extends Model
     protected $fillable = [
         'type'
     ];
+
+    public function bouteille()
+    {
+        return $this->hasOne(Bouteille::class, 'id_type');
+    }
 }
