@@ -9,6 +9,8 @@ use App\Http\Controllers\FormatController;
 use App\Http\Controllers\PaysController;
 use App\Http\Controllers\CellierController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -49,5 +51,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::apiResource('crawl', AdminController::class); //route pour le crawler
     Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
     Route::apiResource('couleurs', PastilleCouleurController::class); //route pour les couleurs
-    Route::apiResource('auth', AuthController::class);
+    //Route::apiResource('auth', AuthController::class);
+    Route::post('login', [AuthController::class, 'login']);
 }); 
+
+// Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:sanctum'], function(){
+    
+// });
