@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function celliers(){
         return $this->hasMany(Cellier::class, 'id_user');
     }
+
+    public function role(){
+        return $this->belongsTo(Role::class, 'id_role');
+    }
 }

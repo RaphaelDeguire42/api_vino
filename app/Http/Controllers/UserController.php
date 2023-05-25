@@ -40,14 +40,14 @@ class UserController extends Controller
         try {
             $incluCelliers = $request->query('incluCelliers');
             $incluBouteilles = $request->query('incluBouteilles');
-    
+
             if ($incluCelliers) {
                 return new UserResource($user->loadMissing('celliers'));
             }
-    
+
             return new UserResource($user);
         } catch (\Exception $e) {
-            
+
             return response()->json(['message' => 'Une erreur s\'est produite durant la requête'], 500);
         }
     }
