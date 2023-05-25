@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\LoginUserRequest;
 
 
@@ -34,7 +34,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(StoreUserRequest $request) {
+    public function register(RegisterUserRequest $request) {
 
         $request->validated($request->all());
 

@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::apiResource('couleurs', PastilleCouleurController::class); //route pour les couleurs
     //Route::apiResource('auth', AuthController::class);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
 }); 
 
 // Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:sanctum'], function(){
