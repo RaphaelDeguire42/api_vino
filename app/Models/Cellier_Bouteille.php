@@ -27,8 +27,24 @@ class Cellier_Bouteille extends Model
         return $this->hasOne(Bouteille::class, 'id', 'id_bouteille');
     }
 
-    //TODO RELATION POUR AFFICHER PAYS
+    public function pays()
+    {
+        return $this->belongsTo(Pays::class, 'id_pays');
+    }
 
+    public function format()
+    {
+        return $this->belongsTo(Format::class, 'id_format');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'id_type');
+    }
+
+    public function noteCommentaire() {
+        return $this->hasmany(Note_Commentaire::class);
+    }
 
     public function celliersDansCellier_bouteilles() {
         return $this->belongsTo(Cellier::class);

@@ -14,7 +14,8 @@ class CellierBouteilleResource extends JsonResource
      */
     public function toArray($request)
     {
-        $this->load(['bouteillesDansCellier_bouteilles']);
+        $this->load(['bouteillesDansCellier_bouteilles', 'pays', 'type', 'format']);
+
 
         return [
             'id'                    => $this->id,
@@ -24,9 +25,9 @@ class CellierBouteilleResource extends JsonResource
             'url_saq'               => $this->bouteillesDansCellier_bouteilles->url_saq,
             'prix'                  => $this->bouteillesDansCellier_bouteilles->prix,
             'actif'                 => $this->bouteillesDansCellier_bouteilles->actif,
-            'id_type'               => $this->bouteillesDansCellier_bouteilles->id_type,
-            'id_pays'               => $this->id_pays,
-            'id_format'             => $this->bouteillesDansCellier_bouteilles->id_format,
+            'type'                  => $this->bouteillesDansCellier_bouteilles->type->type,
+            'pays'                  => $this->pays->pays,
+            'format'                => $this->bouteillesDansCellier_bouteilles->format->format,
             'quantite'              => $this->quantite,
             'date_achat'            => $this->date_achat,
             'garde'                 => $this->garde,
