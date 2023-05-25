@@ -46,7 +46,13 @@ class PaysController extends Controller
      */
     public function show($id)
     {
-        //
+        $pays = Pays::find($id);
+
+        if (!$pays) {
+            return response()->json(['error' => 'Pays not found'], 404);
+        }
+
+        return response()->json($pays);
     }
 
     /**

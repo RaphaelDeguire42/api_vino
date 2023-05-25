@@ -19,20 +19,20 @@ class BouteilleController extends Controller
     {
         $filtre = new BouteilleQuery();
         $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
-    
+
         $query = Bouteille::query();
-    
+
         $ordre = $request->query('prix');
-        
+
         foreach ($paramQuery as $param) {
             $query->where($param[0], $param[1], $param[2]);
         }
-    
+
 
         if ($ordre) {
             $query->orderBy('prix', $ordre);
         }
-    
+
         return $query->get();
     }
 
@@ -77,8 +77,31 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        return $bouteille;
+        $bouteille->load('type.bouteille', 'format.bouteille', 'pays.bouteille');
+
+        $bouteille->makeHidden(['id_type', 'id_format', 'id_pays']);
+        $bouteille->pays = $bouteille->pays->pays;
+        $bouteille->format = $bouteille->format->format;
+        $bouteille->type = $bouteille->type->type;
+
+        $response = [
+            'id' => $bouteille->id,
+            'nom' => $bouteille->nom,
+            'code_saq' => $bouteille->code_saq,
+            'url_saq' => $bouteille->url_saq,
+            'url_img' => $bouteille->url_img,
+            'prix' => $bouteille->prix,
+            'actif' => $bouteille->actif,
+            'created_at' => $bouteille->created_at,
+            'updated_at' => $bouteille->updated_at,
+            'pays' => $bouteille->pays,
+            'format' => $bouteille->format,
+            'type' => $bouteille->type,
+        ];
+
+        return $response;
     }
+
 
     /**
      * Show the form for editing the specified resource.

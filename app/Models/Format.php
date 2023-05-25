@@ -11,4 +11,9 @@ class Format extends Model
     protected $fillable = [
         'format'
     ];
+
+    public function bouteille()
+    {
+        return $this->hasOne(Bouteille::class, 'id_format');
+    }
 }

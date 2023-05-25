@@ -46,7 +46,13 @@ class TypeController extends Controller
      */
     public function show($id)
     {
-        //
+        $type = Type::find($id);
+
+        if (!$type) {
+            return response()->json(['error' => 'Type not found'], 404);
+        }
+
+        return response()->json($type);
     }
 
     /**

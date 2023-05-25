@@ -47,7 +47,13 @@ class FormatController extends Controller
      */
     public function show($id)
     {
-        //
+        $format = Format::find($id);
+
+        if (!$format) {
+            return response()->json(['error' => 'Format not found'], 404);
+        }
+
+        return response()->json($format);
     }
 
     /**
