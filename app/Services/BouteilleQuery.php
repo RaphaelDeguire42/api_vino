@@ -31,17 +31,17 @@ use Illuminate\Support\Facades\DB;
     $eloquentArray = [];
 
     foreach ($this->champsPermis as $col => $operators) {
-        $query = $request->query($col);
+        $queries = $request->query($col);
 
-        if (!isset($query)) {
+        if (!isset($queries)) {
             continue;
         }
 
         $column = $col;
 
         foreach ($operators as $operator) {
-            if (isset($query[$operator])) {
-                $values = is_array($query[$operator]) ? $query[$operator] : [$query[$operator]];
+            if (isset($queries[$operator])) {
+                $values = is_array($queries[$operator]) ? $queries[$operator] : [$queries[$operator]];
                 foreach ($values as $value) {
                     if ($operator === 'lk') {
                         $eloquentArray[] = [$column, $this->operateursMap[$operator], "%" . $value . "%"];
@@ -55,6 +55,7 @@ use Illuminate\Support\Facades\DB;
 
     return $eloquentArray;
 }
+
 }
 
 
