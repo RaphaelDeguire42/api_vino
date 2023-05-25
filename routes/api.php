@@ -50,12 +50,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::apiResource('formats', FormatController::class); //CRUD pour Formats
     Route::apiResource('crawl', AdminController::class); //route pour le crawler
     Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
-    Route::apiResource('couleurs', PastilleCouleurController::class); //route pour les couleurs
+     //route pour les couleurs
     //Route::apiResource('auth', AuthController::class);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
 }); 
 
-// Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:sanctum'], function(){
-    
-// });
+Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:sanctum'], function(){
+    Route::apiResource('couleurs', PastilleCouleurController::class);
+});

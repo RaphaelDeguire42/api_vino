@@ -54,5 +54,4 @@ class AuthController extends Controller
         return response()->json('This is my logout method');
     }
 
-
 }
