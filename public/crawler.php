@@ -22,6 +22,7 @@
                     'Connection: keep-alive',
                     'Upgrade-Insecure-Requests: 1',
             ),
+			CURLOPT_SSL_VERIFYPEER => false
     ));
 
 		$_webpage = curl_exec($s);

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\LoginUserRequest;
 
 
 class AuthController extends Controller
@@ -17,37 +18,40 @@ class AuthController extends Controller
     *  Deconnexion compte
     */
 
-    public function index()
-    {
-        return view('auth.index');
+    public function login(LoginUserRequest $request) {
+
+        $request->validated($request->all());
+
+        if(!Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            return response()->json(['message' => 'Credentials do not match']);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        
+        return response()->json([
+            'user' => $user,
+            'token' => $user->createToken('Api Token of ' . $user->name)->plainTextToken
+        ]);
     }
 
-    public function authentification(Request $request){
-        $request->validate([
-            'email' => 'required|email|exists:users',
-            'password' => 'required'
+    public function register(StoreUserRequest $request) {
+
+        $request->validated($request->all());
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        $credentials = $request->only('email', 'password');
-
-       if(!Auth::validate($credentials)):
-            return redirect(route('connexion'))->withErrors('erreur de mot de passe')->withInput();
-       endif;
-
-       $user = Auth::getProvider()->retrieveByCredentials($credentials);
-     
-
-       Auth::login($user);
-       session()->start();
-       session()->put('auth', $user->name);
-
-       return redirect()->intended(url('/'));
+        return response()->json([
+            'user'=> $user,
+            'token' => $user->createToken('API Token of ' . $user->name)->plainTextToken
+        ]);
     }
 
-    public function deconnexion(){
-        Auth::logout();
-        session()->forget('auth');
-        return redirect(route('connexion'));
+    public function logout() {
+        return response()->json('This is my logout method');
     }
 
 
