@@ -22,6 +22,8 @@ return new class extends Migration
             $table->dateTime('date_achat');
             $table->integer('garde');
             $table->integer('millesime');
+            $table->string('url_img');
+            $table->integer('id_pays');
             $table->timestamps();
         });
     }

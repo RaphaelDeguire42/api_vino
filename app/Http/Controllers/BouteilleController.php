@@ -6,6 +6,7 @@ use App\Models\Bouteille;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBouteilleRequest;
 use App\Http\Requests\UpdateBouteilleRequest;
+use App\Http\Resources\BouteilleResource;
 use App\Services\BouteilleQuery;
 
 class BouteilleController extends Controller
@@ -33,7 +34,9 @@ class BouteilleController extends Controller
             $query->orderBy('prix', $ordre);
         }
 
-        return $query->get();
+        $bouteilles = $query->get();
+        return BouteilleResource::collection($bouteilles);
+
     }
 
     /**
