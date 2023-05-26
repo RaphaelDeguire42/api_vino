@@ -80,7 +80,16 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        $bouteille->load('type.bouteille', 'format.bouteille', 'pays.bouteille');
+        return new BouteilleResource($bouteille);
+
+
+
+
+
+
+
+
+       /*  $bouteille->load('type.bouteille', 'format.bouteille', 'pays.bouteille');
 
         $bouteille->makeHidden(['id_type', 'id_format', 'id_pays']);
         $bouteille->pays = $bouteille->pays->pays;
@@ -102,7 +111,7 @@ class BouteilleController extends Controller
             'type' => $bouteille->type,
         ];
 
-        return $response;
+        return $response; */
     }
 
 

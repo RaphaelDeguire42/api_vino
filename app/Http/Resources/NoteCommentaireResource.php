@@ -14,12 +14,11 @@ class NoteCommentaireResource extends JsonResource
      */
     public function toArray($request)
     {
-
-        $this->load(['bouteille_note_commentaire', 'user_note_commentaire', 'bouteille_note_commentaireDansCellier']);
-
+        $this->load(['bouteille_note_commentaire', 'has_user']);
         return [ 
+            
             'id'                    => $this->id,
-            'user_nom'              => $this->user_note_commentaire->name,
+            'user_nom'              => $this->has_user->name,
             'id_bouteille'          => $this->id_bouteille,
             'note'                  => $this->note,
             'commentaire'           => $this->commentaire,

@@ -40,7 +40,7 @@ class Bouteille extends Model
     }
 
     public function noteCommentaire() {
-        return $this->hasmany(Note_Commentaire::class, 'id');
+        return $this->hasmany(Note_Commentaire::class, 'id_bouteille');
     }
     
     public function type()

@@ -50,4 +50,7 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo(Role::class, 'id_role');
     }
+    public function user_notesCommentaires(){
+        return $this->hasMany(Note_Commentaire::class, 'id_user');
+    }
 }
