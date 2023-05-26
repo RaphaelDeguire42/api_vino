@@ -12,4 +12,7 @@ class Note_Commentaire extends Model
     public function bouteille_note_commentaire() {
         return $this->belongsTo(Bouteille::class);
     }
+    public function user_note_commentaire() {
+        return $this->belongsTo(User::class);
+    }
 }
