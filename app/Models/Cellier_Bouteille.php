@@ -43,7 +43,7 @@ class Cellier_Bouteille extends Model
     }
 
     public function noteCommentaire() {
-        return $this->hasmany(Note_Commentaire::class);
+        return $this->hasmany(Note_Commentaire::class, 'id_bouteille');
     }
 
     public function celliersDansCellier_bouteilles() {
