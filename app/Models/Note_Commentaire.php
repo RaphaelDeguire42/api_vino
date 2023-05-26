@@ -15,7 +15,7 @@ class Note_Commentaire extends Model
     public function bouteille_note_commentaireDansCellier() {
         return $this->belongsTo(Cellier_Bouteille::class, 'id_bouteille');
     }
-    public function user_note_commentaire() {
-        return $this->belongsTo(User::class, 'id');
+    public function has_user() {
+        return $this->hasOne('App\Models\User', 'id', 'id_user');
     }
 }
