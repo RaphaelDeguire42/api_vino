@@ -17,7 +17,7 @@ class NoteCommentaireResource extends JsonResource
 
         $this->load(['bouteille_note_commentaire', 'user_note_commentaire', 'bouteille_note_commentaireDansCellier']);
 
-        return [
+        return [ 
             'id'                    => $this->id,
             'user_nom'              => $this->user_note_commentaire->name,
             'id_bouteille'          => $this->id_bouteille,
