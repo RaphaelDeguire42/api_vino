@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('note__commentaires', function (Blueprint $table) {
             $table->id();
-            $table->unsignedSmallInteger('note');
-            $table->text('commentaire');
+            $table->unsignedSmallInteger('note')->nullable();
+            $table->text('commentaire')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('id_bouteille');
             $table->foreign('id_bouteille')->references('id')->on('bouteilles');
