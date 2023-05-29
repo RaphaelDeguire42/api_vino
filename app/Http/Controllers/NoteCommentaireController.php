@@ -61,8 +61,8 @@ class NoteCommentaireController extends Controller
     public function update(Request $request, Note_Commentaire $note_Commentaire)
     {
         $data = $request->validate([
-            'note' => 'required|integer',
-            'commentaire' => 'required|string',
+            'note' => 'required|sometimes|integer',
+            'commentaire' => 'required|sometimes|string',
         ]);
 
         $note_Commentaire->update($data);

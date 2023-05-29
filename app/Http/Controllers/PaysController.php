@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pays;
+use App\Http\Resources\PaysResource;
 use Illuminate\Http\Request;
 
 class PaysController extends Controller
@@ -16,9 +17,9 @@ class PaysController extends Controller
     {
         $pays = Pays::whereDoesntHave('bouteille', function ($query) {
             $query->where('actif', 0);
-        })->get('pays');
+        })->get();
     
-        return response()->json($pays);
+        return PaysResource::collection($pays);
     }
 
     /**
