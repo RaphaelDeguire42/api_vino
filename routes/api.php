@@ -56,4 +56,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource('crawl', AdminController::class); //route pour le crawler
         Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
         Route::apiResource('couleurs', PastilleCouleurController::class);       
+        Route::apiResource('note-commentaires', NoteCommentaireController::class);       
 });
