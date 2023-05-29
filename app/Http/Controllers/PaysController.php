@@ -14,7 +14,11 @@ class PaysController extends Controller
      */
     public function index()
     {
-        return Pays::all();
+        $pays = Pays::whereDoesntHave('bouteille', function ($query) {
+            $query->where('actif', 0);
+        })->get('pays');
+    
+        return response()->json($pays);
     }
 
     /**
