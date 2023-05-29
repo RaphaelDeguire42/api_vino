@@ -27,7 +27,7 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
-        
+        $user->tokens()->delete();
         return response()->json([
             'user' => $user,
             'token' => $user->createToken('Api Token of ' . $user->name)->plainTextToken

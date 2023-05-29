@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Format;
+use App\Http\Resources\FormatResource;
 use Illuminate\Http\Request;
 
 class FormatController extends Controller
@@ -16,9 +17,9 @@ class FormatController extends Controller
     {
         $format = Format::whereDoesntHave('bouteille', function ($query) {
             $query->where('actif', 0);
-        })->get('format');
+        })->get();
     
-        return response()->json($format);
+        return FormatResource::collection($format);
 
     }
 

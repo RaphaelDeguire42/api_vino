@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note_Commentaire extends Model
 {
+
+    protected $fillable = [
+        'commentaire',
+        'note',
+    ];  
     use HasFactory;
 
     public function bouteille_note_commentaire() {

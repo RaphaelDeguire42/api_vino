@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use Illuminate\Http\Request;
+use App\Http\Resources\TypeResource;
 
 class TypeController extends Controller
 {
@@ -16,9 +17,9 @@ class TypeController extends Controller
     {
         $types = Type::whereDoesntHave('bouteille', function ($query) {
             $query->where('actif', 0);
-        })->get('type');
+        })->get();
 
-        return response()->json($types);
+        return TypeResource::collection($types);
     }
 
     /**
