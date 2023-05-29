@@ -14,7 +14,11 @@ class FormatController extends Controller
      */
     public function index()
     {
-        return Format::all();
+        $format = Format::whereDoesntHave('bouteille', function ($query) {
+            $query->where('actif', 0);
+        })->get('format');
+    
+        return response()->json($format);
 
     }
 

@@ -22,8 +22,10 @@ return new class extends Migration
             $table->dateTime('date_achat');
             $table->integer('garde');
             $table->integer('millesime');
-            $table->string('url_img');
-            $table->integer('id_pays');
+            $table->string('url_img')->default('assets/img/placeholder_bottle.webp');
+            $table->integer('id_pays')->nullable();
+            $table->integer('id_type')->nullable();
+            $table->integer('id_format')->nullable();
             $table->timestamps();
         });
     }
