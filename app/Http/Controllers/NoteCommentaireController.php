@@ -29,11 +29,23 @@ class NoteCommentaireController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'id_bouteille' => 'required',
-            'id_user'       => 'required',
+            'id_bouteille' => 'required|integer',
+            'id_user'       => 'required|integer',
             'note' => 'required|sometimes|integer',
             'commentaire' => 'required|sometimes|string',
         ]);
+
+        
+        $existingRecord = Note_Commentaire::where('id_user', $data['id_user'])
+        ->where('id_bouteille', $data['id_bouteille'])
+        ->first();
+
+
+        if ($existingRecord) {
+            $existingRecord->update($data);
+            return response()->json($existingRecord, 200);
+        }
+
 
         $note_Commentaire = Note_Commentaire::create($data);
 
@@ -64,6 +76,7 @@ class NoteCommentaireController extends Controller
         $data = $request->validate([
             'note' => 'required|sometimes|integer',
             'commentaire' => 'required|sometimes|string',
+            'id_bouteille' => 'required|sometimes|integer'
         ]);
 
         $note_Commentaire->update($data);
