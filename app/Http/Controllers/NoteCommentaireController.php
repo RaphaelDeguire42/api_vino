@@ -30,8 +30,9 @@ class NoteCommentaireController extends Controller
     {
         $data = $request->validate([
             'id_bouteille' => 'required',
-            'note' => 'required|integer',
-            'commentaire' => 'required|string',
+            'id_user'       => 'required',
+            'note' => 'required|sometimes|integer',
+            'commentaire' => 'required|sometimes|string',
         ]);
 
         $note_Commentaire = Note_Commentaire::create($data);

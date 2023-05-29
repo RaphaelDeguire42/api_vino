@@ -11,6 +11,8 @@ class Note_Commentaire extends Model
     protected $fillable = [
         'commentaire',
         'note',
+        'id_bouteille',
+        'id_user'
     ];  
     use HasFactory;
 

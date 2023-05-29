@@ -55,6 +55,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource('formats', FormatController::class); //CRUD pour Formats
         Route::apiResource('crawl', AdminController::class); //route pour le crawler
         Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
-        Route::apiResource('couleurs', PastilleCouleurController::class);       
-        Route::apiResource('note-commentaires', NoteCommentaireController::class);       
+        Route::apiResource('couleurs', PastilleCouleurController::class);   //route pour les couleurs    
+        Route::apiResource('note-commentaires', NoteCommentaireController::class); // route pour notes commenraires
 });
