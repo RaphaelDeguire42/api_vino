@@ -14,7 +14,11 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return Type::all();
+        $types = Type::whereDoesntHave('bouteille', function ($query) {
+            $query->where('actif', 0);
+        })->get('type');
+
+        return response()->json($types);
     }
 
     /**
