@@ -61,6 +61,12 @@ class CellierBouteilleController extends Controller
         $cellier_bouteille->date_achat = Carbon::parse($request['date_achat'])->format('Y-m-d H:i:s');
         $cellier_bouteille->garde = $request['garde'];
         $cellier_bouteille->millesime = $request['millesime'];
+        $format = Format::firstOrCreate(['format' => $request['format']]);
+        $pays = Pays::firstOrCreate(['pays' => $request['pays']]);
+        $type = Type::firstOrCreate(['type' => $request['type']]);
+        $cellier_bouteille->id_format = $format->id;
+        $cellier_bouteille->id_pays = $pays->id;
+        $cellier_bouteille->id_type = $type->id;
 
 
         $existingBottle = Cellier_Bouteille::where('nom', $request['nom'])
