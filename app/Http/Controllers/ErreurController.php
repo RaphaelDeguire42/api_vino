@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Erreur;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ErreurController extends Controller
@@ -14,8 +15,18 @@ class ErreurController extends Controller
      */
     public function index()
     {
-        return Erreur::all();
+        $erreurs = Erreur::with('user')->get();
+
+        $formattedErreurs = $erreurs->map(function ($erreur) {
+            $nomUser = $erreur->user ? $erreur->user->name : null;
+            $erreur->setAttribute('nom_user', $nomUser);
+            unset($erreur->user);
+            return $erreur;
+        });
+
+        return response()->json($formattedErreurs);
     }
+
 
     /**
      * Show the form for creating a new resource.

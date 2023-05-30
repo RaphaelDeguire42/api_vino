@@ -11,4 +11,9 @@ class Erreur extends Model
     protected $fillable = [
         'erreur'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
 }
