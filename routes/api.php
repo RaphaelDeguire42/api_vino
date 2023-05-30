@@ -31,8 +31,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  Route::group(['namespace' => 'App\Http\Controllers'], function(){
      Route::post('login', [AuthController::class, 'login']);
      Route::post('register', [AuthController::class, 'register']);
-    }); 
-    
+    });
+
     Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:sanctum'], function(){
         Route::apiResource('bouteilles', BouteilleController::class); // CRUD pour Bouteilles
         Route::apiResource('users', UserController::class); // CRUD pour Users
@@ -43,6 +43,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource('formats', FormatController::class); //CRUD pour Formats
         Route::apiResource('crawl', AdminController::class); //route pour le crawler
         Route::apiResource('erreur', ErreurController::class); //route pour les erreurs
-        Route::apiResource('couleurs', PastilleCouleurController::class);   //route pour les couleurs    
+        Route::apiResource('couleurs', PastilleCouleurController::class);   //route pour les couleurs
         Route::apiResource('note-commentaires', NoteCommentaireController::class); // route pour notes commenraires
 });
