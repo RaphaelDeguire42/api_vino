@@ -114,11 +114,10 @@ class UserController extends Controller
 
         $user->celliers()->delete();
 
-        // A checker le auth pour soit un admin soit le proprio du compte TODO
-
         $user->delete();
 
         return response()->json(['message' => 'Utilisateur supprimé avec succès']);
     }
+
 
 }
