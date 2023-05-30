@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bouteille;
+use App\Models\Cellier_Bouteille;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreBouteilleRequest;
 use App\Http\Requests\UpdateBouteilleRequest;
 use App\Http\Resources\BouteilleResource;
@@ -151,5 +153,28 @@ class BouteilleController extends Controller
         $bouteille->delete();
         return response()->json(['id' => $bouteille->id]);
     }
+
+
+    public function stats()
+    {
+        $bouteilleCounts = [
+            'décompte_des_types' => Cellier_Bouteille::select('types.type', DB::raw('count(*) as décompte'))
+            ->join('types', 'Cellier__bouteilles.id_type', '=', 'types.id')
+            ->groupBy('types.type')
+            ->get(),
+        
+            
+            'décompte_des_pays' => Cellier_Bouteille::select('pays.pays', DB::raw('count(*) as décompte'))
+            ->join('pays', 'Cellier__bouteilles.id_pays', '=', 'pays.id')
+            ->groupBy('pays.pays')
+            ->get(),
+        
+            
+            // Add more counts for other attributes as needed
+        ];
+    
+        return response()->json($bouteilleCounts);
+    }
+
 
 }
