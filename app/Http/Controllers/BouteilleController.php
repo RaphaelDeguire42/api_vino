@@ -80,7 +80,7 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        
+
         return new BouteilleResource($bouteille);
 
 
