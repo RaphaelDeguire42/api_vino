@@ -16,9 +16,16 @@ class NoteCommentaireController extends Controller
     public function index()
     {
         try {
-            $note_Commentaires = Note_Commentaire::all();
+            $noteComentaires = Note_Commentaire::with('user')->get();
 
-            return response()->json($note_Commentaires, 200);
+            $formattedNoteComentaires = $noteComentaires->map(function ($noteComentaire) {
+                $nomUser = $noteComentaire->user ? $noteComentaire->user->name : null;
+                $noteComentaire->setAttribute('nom_user', $nomUser);
+                unset($noteComentaire->user);
+                return $noteComentaire;
+            });
+
+            return response()->json($formattedNoteComentaires, 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Une erreur s\'est produite', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
