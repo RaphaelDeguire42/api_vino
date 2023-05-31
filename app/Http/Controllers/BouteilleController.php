@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bouteille;
+use App\Models\User;
 use App\Models\Cellier_Bouteille;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -136,7 +137,32 @@ class BouteilleController extends Controller
      */
     public function stats()
     {
-        try {
+        
+
+            $data = [];
+                    $users = User::withCount('celliers')
+                        ->with(['celliers' => function ($query) {
+                            $query->withCount('cellierBouteilles');
+                        }])
+                        ->get();
+                    
+                    foreach ($users as $user) {
+                        $celliers = [];
+                        
+                        foreach ($user->celliers as $cellier) {
+                            $celliers[] = [
+                                'nom' => $cellier->nom,
+                                'nombre_bouteilles' => count($cellier->cellierBouteilles),
+                            ];
+                        }
+                        
+                        $data[] = [
+                            'utilisateur' => $user->name,
+                            'celliers' => $celliers,
+                        ];
+                    }
+            try {
+
             $bouteilleCounts = [
                 'decompte_des_types' => Cellier_Bouteille::select('types.type', DB::raw('count(*) as décompte'))
                     ->join('types', 'Cellier__bouteilles.id_type', '=', 'types.id')
@@ -147,7 +173,8 @@ class BouteilleController extends Controller
                     ->join('pays', 'Cellier__bouteilles.id_pays', '=', 'pays.id')
                     ->groupBy('pays.pays')
                     ->get(),
-        
+
+                'decompte_users' => $data,
             ];
         
             return response()->json($bouteilleCounts);
@@ -155,7 +182,7 @@ class BouteilleController extends Controller
            // Gestion des exceptions
             return response()->json(['message' => 'Une erreur s\'est produite lors du calcul des décomptes des bouteilles'], 500);
         }
+    
+
     }
-
-
 }
