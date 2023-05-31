@@ -29,7 +29,7 @@ return new class extends Migration
         DB::table('users')->insert([
             'name' => 'DummyUser',
             'email' => 'user@example.com',
-            'password' => Hash::make('pass1234'),
+            'password' => Hash::make('P@ss12345'),
             'id_role' => 1
         ]);
     }
