@@ -55,6 +55,7 @@ class AuthController extends Controller
             'user'=> $user,
             'token' => $user->createToken('API Token of ' . $user->name)->plainTextToken
         ]);
+        
     }
 
     public function logout() {
