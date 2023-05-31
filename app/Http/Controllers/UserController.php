@@ -14,11 +14,6 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-    /*
-    * Page création compte
-    * Page Gestion compte
-    * Modification compte
-    */
 
     public function index()
     {
@@ -30,10 +25,7 @@ class UserController extends Controller
         }
     }
 
-    public function create(Request $request)
-    {
-        //
-    }
+  
 
     public function show(Request $request, User $user)
     {
