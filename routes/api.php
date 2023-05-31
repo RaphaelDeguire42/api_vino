@@ -46,4 +46,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::apiResource('couleurs', PastilleCouleurController::class);   //route pour les couleurs
         Route::apiResource('note-commentaires', NoteCommentaireController::class); // route pour notes commenraires
         Route::get('stats', [BouteilleController::class, 'stats']);
+/*        Route::apiResource('utilisateurs', 'UtilisateurController')->names([
+            'index' => 'utilisateurs.afficherListe',
+            'show' => 'utilisateurs.afficher',
+            'store' => 'utilisateurs.enregistrer',
+            'update' => 'utilisateurs.miseAJour',
+            'destroy' => 'utilisateurs.supprimer',
+        ]); */
 });
