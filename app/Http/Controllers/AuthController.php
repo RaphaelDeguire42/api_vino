@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\LoginUserRequest;
-
+use App\Models\Cellier;
 
 class AuthController extends Controller
 {
-    /* Connexion page 
+    /* Connexion page
     *  Connexion compte
     *  Deconnexion compte
     */
@@ -44,6 +44,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'id_role' => $request->id_role ?? 2,
         ]);
+
+        $cellier = new Cellier();
+        $cellier->nom = 'Mon premier cellier';
+        $cellier->id_user = $user->id;
+        $cellier->id_couleur = 1;
+        $cellier->save();
 
         return response()->json([
             'user'=> $user,
