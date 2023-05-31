@@ -44,6 +44,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'id_role' => $request->id_role ?? 2,
         ]);
+        
+        $cellier = new Cellier();
+        $cellier->nom = 'Mon premier cellier';
+        $cellier->id_user = $user->id;
+        $cellier->id_couleur = 1;
+        $cellier->save();
 
         return response()->json([
             'user'=> $user,
