@@ -51,13 +51,11 @@ class AuthController extends Controller
         $cellier->id_couleur = 1;
         $cellier->save();
 
-        return response()->json([
-            'user'=> $user,
-            'token' => $user->createToken('API Token of ' . $user->name)->plainTextToken
-        ]);
+
     }
 
     public function logout() {
+        
         return response()->json('This is my logout method');
     }
 
