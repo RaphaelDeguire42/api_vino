@@ -4,21 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Pastille_couleur;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PastilleCouleurController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche une liste des ressources.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Pastille_couleur::all();
+        try {
+            return Pastille_couleur::all();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Erreur lors de la récupération des ressources'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'une nouvelle ressource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,7 +33,7 @@ class PastilleCouleurController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stocke une nouvelle ressource nouvellement créée.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -39,7 +44,7 @@ class PastilleCouleurController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche la ressource spécifiée.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -50,7 +55,7 @@ class PastilleCouleurController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire d'édition de la ressource spécifiée.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -61,7 +66,7 @@ class PastilleCouleurController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour la ressource spécifiée dans le stockage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -73,13 +78,23 @@ class PastilleCouleurController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime la ressource spécifiée du stockage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            // Fetch the resource
+            $pastilleCouleur = Pastille_couleur::findOrFail($id);
+
+            // Delete the resource
+            $pastilleCouleur->delete();
+
+            return response()->json(['message' => 'Ressource supprimée']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'La suppression a échoué', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

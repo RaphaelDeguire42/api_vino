@@ -5,31 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\Erreur;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ErreurController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche une liste des ressources.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $erreurs = Erreur::with('user')->get();
+        try {
+            $erreurs = Erreur::with('user')->get();
 
-        $formattedErreurs = $erreurs->map(function ($erreur) {
-            $nomUser = $erreur->user ? $erreur->user->name : null;
-            $erreur->setAttribute('nom_user', $nomUser);
-            unset($erreur->user);
-            return $erreur;
-        });
+            $formattedErreurs = $erreurs->map(function ($erreur) {
+                $nomUser = $erreur->user ? $erreur->user->name : null;
+                $erreur->setAttribute('nom_user', $nomUser);
+                unset($erreur->user);
+                return $erreur;
+            });
 
-        return response()->json($formattedErreurs);
+            return response()->json($formattedErreurs);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Une erreur s\'est produite', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'une nouvelle ressource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -39,32 +44,38 @@ class ErreurController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stocke une nouvelle ressource dans le stockage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $erreur = new Erreur();
-        $erreur->erreur = $request->erreur;
-        $erreur->id_user = $request->id_user;
-        $erreur->save();
+        try {
+            $erreur = new Erreur();
+            $erreur->erreur = $request->erreur;
+            $erreur->id_user = $request->id_user;
+            $erreur->save();
+
+            return response()->json(['message' => 'Erreur enregistrée'], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Une erreur s\'est produite', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Affiche la ressource spécifiée.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire de modification de la ressource spécifiée.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -75,7 +86,7 @@ class ErreurController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour la ressource spécifiée dans le stockage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -83,17 +94,28 @@ class ErreurController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            // Code to update the specified resource
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'La mise à jour a échoué', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime la ressource spécifiée du stockage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            $erreur = Erreur::findOrFail($id);
+            $erreur->delete();
+
+            return response()->json(['message' => 'Erreur supprimée']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'La suppression a échoué', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -5,25 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Resources\TypeResource;
+use Illuminate\Http\Response;
 
 class TypeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche une liste des ressources.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $types = Type::whereDoesntHave('bouteille', function ($query) {
-            $query->where('actif', 0);
-        })->get();
+        try {
+            $types = Type::whereDoesntHave('bouteille', function ($query) {
+                $query->where('actif', 0);
+            })->get();
 
-        return TypeResource::collection($types);
+            return TypeResource::collection($types);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Erreur lors de la récupération des ressources'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'une nouvelle ressource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,7 +38,7 @@ class TypeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stocke une nouvelle ressource nouvellement créée.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -44,24 +49,28 @@ class TypeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche la ressource spécifiée.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $type = Type::find($id);
+        try {
+            $type = Type::find($id);
 
-        if (!$type) {
-            return response()->json(['error' => 'Type not found'], 404);
+            if (!$type) {
+                return response()->json(['error' => 'Type introuvable'], 404);
+            }
+
+            return response()->json($type);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Erreur lors de la récupération de la ressource'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return response()->json($type);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire d'édition de la ressource spécifiée.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -72,7 +81,7 @@ class TypeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour la ressource spécifiée dans le stockage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -84,13 +93,23 @@ class TypeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime la ressource spécifiée du stockage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            // Fetch la resource
+            $type = Type::findOrFail($id);
+
+            // Delete la resource
+            $type->delete();
+
+            return response()->json(['message' => 'Ressource supprimée']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'La suppression a échoué', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

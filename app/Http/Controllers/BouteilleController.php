@@ -14,35 +14,38 @@ use App\Services\BouteilleQuery;
 class BouteilleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche une collection de ressources.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $filtre = new BouteilleQuery();
-        $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
-
-        $query = Bouteille::query();
-
-        $ordre = $request->query('prix');
-
-        foreach ($paramQuery as $param) {
-            $query->where($param[0], $param[1], $param[2]);
+        try {
+            $filtre = new BouteilleQuery();
+            $paramQuery = $filtre->transform($request); // [['column', 'operator', 'value']]
+        
+            $query = Bouteille::query();
+        
+            $ordre = $request->query('prix');
+        
+            foreach ($paramQuery as $param) {
+                $query->where($param[0], $param[1], $param[2]);
+            }
+        
+            if ($ordre) {
+                $query->orderBy('prix', $ordre);
+            }
+        
+            $bouteilles = $query->get();
+            return BouteilleResource::collection($bouteilles);
+        } catch (\Exception $e) {
+           // Gestion des exceptions
+            return response()->json(['message' => 'Une erreur s\'est produite lors de la récupération des bouteilles'], 500);
         }
-
-
-        if ($ordre) {
-            $query->orderBy('prix', $ordre);
-        }
-
-        $bouteilles = $query->get();
-        return BouteilleResource::collection($bouteilles);
-
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'une nouvelle ressource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -52,74 +55,35 @@ class BouteilleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stocke une nouvelle ressource dans le stockage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreBouteilleRequest $request)
-        {
-                /*
-            $bouteille = new Bouteille();
-            $bouteille->nom = $produit['nom'];
-            $bouteille->code_saq = $produit['code_saq'];
-            $bouteille->url_saq = $produit['url'];
-            $bouteille->url_img = $produit['img'];
-            $bouteille->prix = $produit['prix'];
-            $bouteille->id_format = $format->id;
-            $bouteille->id_pays = $pays->id;
-            $bouteille->id_type = $type->id;
-            $bouteille->save();
-        return response()->json(['id' => $bouteille->id]);
-        */
+    {
+             
     }
 
     /**
-     * Display the specified resource.
+     * Affiche la ressource spécifiée.
      *
      * @param  \App\Models\Bouteille  $bouteille
      * @return \Illuminate\Http\Response
      */
     public function show(Bouteille $bouteille)
     {
-
-        return new BouteilleResource($bouteille);
-
-
-
-
-
-
-
-
-       /*  $bouteille->load('type.bouteille', 'format.bouteille', 'pays.bouteille');
-
-        $bouteille->makeHidden(['id_type', 'id_format', 'id_pays']);
-        $bouteille->pays = $bouteille->pays->pays;
-        $bouteille->format = $bouteille->format->format;
-        $bouteille->type = $bouteille->type->type;
-
-        $response = [
-            'id' => $bouteille->id,
-            'nom' => $bouteille->nom,
-            'code_saq' => $bouteille->code_saq,
-            'url_saq' => $bouteille->url_saq,
-            'url_img' => $bouteille->url_img,
-            'prix' => $bouteille->prix,
-            'actif' => $bouteille->actif,
-            'created_at' => $bouteille->created_at,
-            'updated_at' => $bouteille->updated_at,
-            'pays' => $bouteille->pays,
-            'format' => $bouteille->format,
-            'type' => $bouteille->type,
-        ];
-
-        return $response; */
+        try {
+            return new BouteilleResource($bouteille);
+        } catch (\Exception $e) {
+           // Gestion des exceptions
+            return response()->json(['message' => 'Une erreur s\'est produite lors de la récupération de la bouteille'], 500);
+        }
     }
 
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire pour modifier la ressource spécifiée.
      *
      * @param  \App\Models\Bouteille  $bouteille
      * @return \Illuminate\Http\Response
@@ -130,7 +94,7 @@ class BouteilleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour la ressource spécifiée dans le stockage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Bouteille  $bouteille
@@ -138,42 +102,59 @@ class BouteilleController extends Controller
      */
     public function update(UpdateBouteilleRequest $request, Bouteille $bouteille)
     {
-        $bouteille->update($request->all());
-        return response()->json(['id' => $bouteille->id]);
+        try {
+            $bouteille->update($request->all());
+            return response()->json(['id' => $bouteille->id]);
+        } catch (\Exception $e) {
+           // Gestion des exceptions
+            return response()->json(['message' => 'Une erreur s\'est produite lors de la mise à jour de la bouteille'], 500);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime la ressource spécifiée du stockage.
      *
      * @param  \App\Models\Bouteille  $bouteille
      * @return \Illuminate\Http\Response
      */
     public function destroy(Bouteille $bouteille)
     {
-        $bouteille->delete();
-        return response()->json(['id' => $bouteille->id]);
+        try {
+            $bouteille->delete();
+            return response()->json(['id' => $bouteille->id]);
+        } catch (\Exception $e) {
+           // Gestion des exceptions
+            return response()->json(['message' => 'Une erreur s\'est produite lors de la suppression de la bouteille'], 500);
+        }
     }
 
 
+    /**
+     * Affiche des statistiques sur les ressources.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function stats()
     {
-        $bouteilleCounts = [
-            'décompte_des_types' => Cellier_Bouteille::select('types.type', DB::raw('count(*) as décompte'))
-            ->join('types', 'Cellier__bouteilles.id_type', '=', 'types.id')
-            ->groupBy('types.type')
-            ->get(),
+        try {
+            $bouteilleCounts = [
+                'décompte_des_types' => Cellier_Bouteille::select('types.type', DB::raw('count(*) as décompte'))
+                    ->join('types', 'Cellier__bouteilles.id_type', '=', 'types.id')
+                    ->groupBy('types.type')
+                    ->get(),
         
-            
-            'décompte_des_pays' => Cellier_Bouteille::select('pays.pays', DB::raw('count(*) as décompte'))
-            ->join('pays', 'Cellier__bouteilles.id_pays', '=', 'pays.id')
-            ->groupBy('pays.pays')
-            ->get(),
+                'décompte_des_pays' => Cellier_Bouteille::select('pays.pays', DB::raw('count(*) as décompte'))
+                    ->join('pays', 'Cellier__bouteilles.id_pays', '=', 'pays.id')
+                    ->groupBy('pays.pays')
+                    ->get(),
         
-            
-            // Add more counts for other attributes as needed
-        ];
-    
-        return response()->json($bouteilleCounts);
+            ];
+        
+            return response()->json($bouteilleCounts);
+        } catch (\Exception $e) {
+           // Gestion des exceptions
+            return response()->json(['message' => 'Une erreur s\'est produite lors du calcul des décomptes des bouteilles'], 500);
+        }
     }
 
 

@@ -15,10 +15,10 @@ use App\Models\Type;
 class CellierBouteilleController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Affiche une liste des ressources.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index(Request $request)
     {
         $filtre = new CellierBouteilleQuery();
@@ -34,21 +34,21 @@ class CellierBouteilleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Affiche le formulaire de création d'une nouvelle ressource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function create()
     {
         //
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    * Enregistre une nouvelle ressource nouvellement créée dans le stockage.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\Response
+    */
     public function store(Request $request)
     {
         $cellier_bouteille = new Cellier_Bouteille();
@@ -114,11 +114,11 @@ class CellierBouteilleController extends Controller
 
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Affiche la ressource spécifiée.
+    *
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
     public function show(Cellier_Bouteille $cellierBouteille)
     {
         try
@@ -129,24 +129,15 @@ class CellierBouteilleController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Met à jour la ressource spécifiée dans le stockage.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
     public function update(UpdateCellierBouteilleRequest $request, Cellier_Bouteille $cellierBouteille)
     {
 
@@ -163,11 +154,11 @@ class CellierBouteilleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Supprime la ressource spécifiée du stockage.
+    *
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
     public function destroy(Cellier_Bouteille $cellierBouteille)
     {
         try {
