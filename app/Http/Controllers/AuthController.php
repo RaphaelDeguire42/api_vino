@@ -57,7 +57,7 @@ class AuthController extends Controller
 
     public function logout() {
         
-        return response()->json('This is my logout method');
+        return response()->json('Ceci est ma méthode de déconnexion');
     }
 
 }

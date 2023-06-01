@@ -158,18 +158,19 @@ class BouteilleController extends Controller
                         
                         $data[] = [
                             'utilisateur' => $user->name,
+                            'id'    => $user->id,
                             'celliers' => $celliers,
                         ];
                     }
             try {
 
             $bouteilleCounts = [
-                'decompte_des_types' => Cellier_Bouteille::select('types.type', DB::raw('count(*) as décompte'))
+                'decompte_des_types' => Cellier_Bouteille::select('types.type', DB::raw('count(*) as decompte'))
                     ->join('types', 'Cellier__bouteilles.id_type', '=', 'types.id')
                     ->groupBy('types.type')
                     ->get(),
         
-                'decompte_des_pays' => Cellier_Bouteille::select('pays.pays', DB::raw('count(*) as décompte'))
+                'decompte_des_pays' => Cellier_Bouteille::select('pays.pays', DB::raw('count(*) as decompte'))
                     ->join('pays', 'Cellier__bouteilles.id_pays', '=', 'pays.id')
                     ->groupBy('pays.pays')
                     ->get(),
